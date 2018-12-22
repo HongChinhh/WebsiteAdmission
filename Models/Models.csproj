@@ -67,5 +67,8 @@
   <ItemGroup>
     <Folder Include="DAO\" />
   </ItemGroup>
+  <ItemGroup>
+    <Content Include="WebsiteAdmissionDatabase.sql" />
+  </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

@@ -23,10 +23,13 @@ namespace Models.EF
         protected override void OnModelCreating(DbModelBuilder modelBuilder)
         {
             modelBuilder.Entity<ParentCategory>()
+                .Property(e => e.ParentCatPath)
+                .IsUnicode(false);
+
+            modelBuilder.Entity<ParentCategory>()
                 .HasMany(e => e.SubCategories)
                 .WithRequired(e => e.ParentCategory)
-                .HasForeignKey(e => e.ParentCategory_ParentCategoryID)
-                .WillCascadeOnDelete(false);
+                .HasForeignKey(e => e.ParentCategory_ParentCatPath);
 
             modelBuilder.Entity<Post>()
                 .Property(e => e.CoverImage)
@@ -47,10 +50,13 @@ namespace Models.EF
                 .IsUnicode(false);
 
             modelBuilder.Entity<SubCategory>()
+                .Property(e => e.ParentCategory_ParentCatPath)
+                .IsUnicode(false);
+
+            modelBuilder.Entity<SubCategory>()
                 .HasMany(e => e.Posts)
                 .WithRequired(e => e.SubCategory)
-                .HasForeignKey(e => e.SubCategory_SubCategoryID)
-                .WillCascadeOnDelete(false);
+                .HasForeignKey(e => e.SubCategory_SubCategoryID);
 
             modelBuilder.Entity<User>()
                 .Property(e => e.UserName)

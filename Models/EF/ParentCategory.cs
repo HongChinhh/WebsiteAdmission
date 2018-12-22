@@ -16,11 +16,14 @@ namespace Models.EF
         }
 
         [Key]
-        public int ParentCatID { get; set; }
+        [StringLength(50)]
+        public string ParentCatPath { get; set; }
 
         [Required]
         [StringLength(250)]
         public string NameParentCat { get; set; }
+
+        public int? Position { get; set; }
 
         public bool? Status { get; set; }
 

@@ -45,6 +45,12 @@
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
   <ItemGroup>
+    <Reference Include="EntityFramework, Version=6.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089, processorArchitecture=MSIL">
+      <HintPath>..\packages\EntityFramework.6.1.3\lib\net45\EntityFramework.dll</HintPath>
+    </Reference>
+    <Reference Include="EntityFramework.SqlServer, Version=6.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089, processorArchitecture=MSIL">
+      <HintPath>..\packages\EntityFramework.6.1.3\lib\net45\EntityFramework.SqlServer.dll</HintPath>
+    </Reference>
     <Reference Include="Microsoft.CSharp" />
     <Reference Include="System" />
     <Reference Include="System.Data" />
@@ -126,34 +132,138 @@
     <Compile Include="App_Start\BundleConfig.cs" />
     <Compile Include="App_Start\FilterConfig.cs" />
     <Compile Include="App_Start\RouteConfig.cs" />
-    <Compile Include="Controllers\HomeController.cs" />
+    <Compile Include="Common\Constants.cs" />
+    <Compile Include="Common\EnumExtensions.cs" />
+    <Compile Include="Controllers\PageController.cs" />
+    <Compile Include="Controllers\ParentCategoriesController.cs" />
+    <Compile Include="Controllers\PostsController.cs" />
+    <Compile Include="Controllers\SubCategoriesController.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
-    <Content Include="Content\bootstrap-theme.css" />
-    <Content Include="Content\bootstrap-theme.min.css" />
-    <Content Include="Content\bootstrap.css" />
-    <Content Include="Content\bootstrap.min.css" />
+    <Content Include="Content\images\chuongtrinhchatluongcao.jpg" />
+    <Content Include="Content\images\chuongtrinhchuan.jpg" />
+    <Content Include="Content\images\demo\160x160.gif" />
+    <Content Include="Content\images\demo\160x80.gif" />
+    <Content Include="Content\images\demo\175x130.gif" />
+    <Content Include="Content\images\demo\190x90.gif" />
+    <Content Include="Content\images\demo\240x90.gif" />
+    <Content Include="Content\images\demo\310x165.gif" />
+    <Content Include="Content\images\demo\440x215.gif" />
+    <Content Include="Content\images\demo\60x60.gif" />
+    <Content Include="Content\images\demo\avatar.gif" />
+    <Content Include="Content\images\demo\featured-slide\720x360.gif" />
+    <Content Include="Content\images\demo\featured-slide\index.html" />
+    <Content Include="Content\images\demo\imgl.gif" />
+    <Content Include="Content\images\demo\imgr.gif" />
+    <Content Include="Content\images\demo\index.html" />
+    <Content Include="Content\images\demo\video.gif" />
+    <Content Include="Content\images\dhkt.jpg" />
+    <Content Include="Content\images\Facebook.png" />
+    <Content Include="Content\images\gioithieuchung.gif" />
+    <Content Include="Content\images\Google-plus.png" />
+    <Content Include="Content\images\gt.mp4" />
+    <Content Include="Content\images\h1.png" />
+    <Content Include="Content\images\hieutruong.jpg" />
+    <Content Include="Content\images\hoc.jpg" />
+    <Content Include="Content\images\icon\airplay.svg" />
+    <Content Include="Content\images\icon\align-center.svg" />
+    <Content Include="Content\images\icon\align-justify.svg" />
+    <Content Include="Content\images\icon\anchor.svg" />
+    <Content Include="Content\images\icon\archive.svg" />
+    <Content Include="Content\images\icon\arrow-up-circle.svg" />
+    <Content Include="Content\images\icon\bell.svg" />
+    <Content Include="Content\images\icon\briefcase.svg" />
+    <Content Include="Content\images\icon\check-square.svg" />
+    <Content Include="Content\images\icon\dollar-sign.svg" />
+    <Content Include="Content\images\icon\edit.svg" />
+    <Content Include="Content\images\icon\feather.svg" />
+    <Content Include="Content\images\icon\gift.svg" />
+    <Content Include="Content\images\icon\globe.svg" />
+    <Content Include="Content\images\icon\inbox.svg" />
+    <Content Include="Content\images\icon\paperclip.svg" />
+    <Content Include="Content\images\ketquatuyensinh.JPG" />
+    <Content Include="Content\images\kt.jpg" />
+    <Content Include="Content\images\latest-work.jpg" />
+    <Content Include="Content\images\lienhe.png" />
+    <Content Include="Content\images\logo.png" />
+    <Content Include="Content\images\nganhtuyensinh.jpg" />
+    <Content Include="Content\images\nophoso.jpg" />
+    <Content Include="Content\images\phuongthuctuyensinh.jpg" />
+    <Content Include="Content\images\posts\1\tb.png" />
+    <Content Include="Content\images\RINH1527.jpg" />
+    <Content Include="Content\images\RINH1565.jpg" />
+    <Content Include="Content\images\slide1.jpg" />
+    <Content Include="Content\images\slide2.jpg" />
+    <Content Include="Content\images\slide3.jpg" />
+    <Content Include="Content\images\slide4.jpg" />
+    <Content Include="Content\images\slide_tintuc.jpg" />
+    <Content Include="Content\images\tb.png" />
+    <Content Include="Content\images\tb1.jpg" />
+    <Content Include="Content\images\tb2.jpg" />
+    <Content Include="Content\images\tb3.png" />
+    <Content Include="Content\images\thinangkhieu.jpg" />
+    <Content Include="Content\images\thongbao.png" />
+    <Content Include="Content\images\thongbaotuyensinh.jpg" />
+    <Content Include="Content\images\tsdh.jpg" />
+    <Content Include="Content\images\tsdh1.jpg" />
+    <Content Include="Content\images\tsdh2.jpg" />
+    <Content Include="Content\images\uocmo.jpg" />
+    <Content Include="Content\images\Youtube.png" />
+    <Content Include="Content\VendorCSS\bootstrap-theme.css" />
+    <Content Include="Content\VendorCSS\bootstrap-theme.min.css" />
+    <Content Include="Content\VendorCSS\bootstrap.css" />
+    <Content Include="Content\VendorCSS\bootstrap.min.css" />
+    <Content Include="Content\styles\gioithieu.css" />
+    <Content Include="Content\styles\hoctaihce.css" />
+    <Content Include="Content\styles\khoa.css" />
+    <Content Include="Content\styles\lienhetuvan.css" />
+    <Content Include="Content\styles\lien_he.css" />
+    <Content Include="Content\styles\nhungdieukhacbiet.css" />
+    <Content Include="Content\styles\tin_tucthongbao.css" />
+    <Content Include="Content\styles\trangchu.css" />
+    <Content Include="Content\styles\trangchu.min.css" />
+    <Content Include="Content\styles\tuvan.css" />
     <Content Include="favicon.ico" />
     <Content Include="fonts\glyphicons-halflings-regular.svg" />
     <Content Include="Global.asax" />
-    <Content Include="Content\Site.css" />
-    <Content Include="Scripts\bootstrap.js" />
-    <Content Include="Scripts\bootstrap.min.js" />
-    <None Include="Scripts\jquery-3.3.1.intellisense.js" />
-    <Content Include="Scripts\jquery-3.3.1.js" />
-    <Content Include="Scripts\jquery-3.3.1.min.js" />
-    <Content Include="Scripts\jquery-3.3.1.slim.js" />
-    <Content Include="Scripts\jquery-3.3.1.slim.min.js" />
-    <None Include="Scripts\jquery.validate-vsdoc.js" />
-    <Content Include="Scripts\jquery.validate.js" />
-    <Content Include="Scripts\jquery.validate.min.js" />
-    <Content Include="Scripts\jquery.validate.unobtrusive.js" />
-    <Content Include="Scripts\jquery.validate.unobtrusive.min.js" />
-    <Content Include="Scripts\modernizr-2.8.3.js" />
+    <Content Include="Content\VendorCSS\Site.css" />
+    <Content Include="Scripts\js\slide.js" />
+    <Content Include="Scripts\VendorJS\bootstrap.js" />
+    <Content Include="Scripts\VendorJS\bootstrap.min.js" />
+    <Content Include="Content\styles\gioithieu.css.map" />
+    <Content Include="Content\styles\gioithieu.scss" />
+    <Content Include="Content\styles\hoctaihce.css.map" />
+    <Content Include="Content\styles\hoctaihce.scss" />
+    <Content Include="Content\styles\khoa.css.map" />
+    <Content Include="Content\styles\khoa.scss" />
+    <Content Include="Content\styles\lienhetuvan.css.map" />
+    <Content Include="Content\styles\lienhetuvan.scss" />
+    <Content Include="Content\styles\lien_he.css.map" />
+    <Content Include="Content\styles\lien_he.scss" />
+    <Content Include="Content\styles\nhungdieukhacbiet.css.map" />
+    <Content Include="Content\styles\nhungdieukhacbiet.scss" />
+    <Content Include="Content\styles\tin_tucthongbao.css.map" />
+    <Content Include="Content\styles\tin_tucthongbao.scss" />
+    <Content Include="Content\styles\trangchu.css.map" />
+    <Content Include="Content\styles\trangchu.scss" />
+    <Content Include="Content\styles\tuvan.css.map" />
+    <Content Include="Content\styles\tuvan.scss" />
+    <None Include="Scripts\VendorJS\jquery-3.3.1.intellisense.js" />
+    <Content Include="Scripts\VendorJS\jquery-3.3.1.js" />
+    <Content Include="Scripts\VendorJS\jquery-3.3.1.min.js" />
+    <Content Include="Scripts\VendorJS\jquery-3.3.1.slim.js" />
+    <Content Include="Scripts\VendorJS\jquery-3.3.1.slim.min.js" />
+    <None Include="Scripts\VendorJS\jquery.validate-vsdoc.js" />
+    <Content Include="Scripts\VendorJS\jquery.validate.js" />
+    <Content Include="Scripts\VendorJS\jquery.validate.min.js" />
+    <Content Include="Scripts\VendorJS\jquery.validate.unobtrusive.js" />
+    <Content Include="Scripts\VendorJS\jquery.validate.unobtrusive.min.js" />
+    <Content Include="Scripts\js\nav-left.js" />
+    <Content Include="Scripts\VendorJS\modernizr-2.8.3.js" />
     <Content Include="Web.config" />
     <Content Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
@@ -165,26 +275,51 @@
     <Content Include="Views\_ViewStart.cshtml" />
     <Content Include="Views\Shared\Error.cshtml" />
     <Content Include="Views\Shared\_Layout.cshtml" />
-    <Content Include="Views\Home\About.cshtml" />
-    <Content Include="Views\Home\Contact.cshtml" />
-    <Content Include="Views\Home\Index.cshtml" />
+    <Content Include="Views\Posts\Create.cshtml" />
+    <Content Include="Views\Posts\Delete.cshtml" />
+    <Content Include="Views\Posts\Details.cshtml" />
+    <Content Include="Views\Posts\Edit.cshtml" />
+    <Content Include="Views\Posts\Index.cshtml" />
+    <Content Include="Views\Page\Index.cshtml" />
+    <Content Include="Views\Shared\SubTemplate\_Sub1.cshtml" />
+    <Content Include="Views\Shared\SubTemplate\_Sub2.cshtml" />
+    <Content Include="Views\SubCategories\Create.cshtml" />
+    <Content Include="Views\SubCategories\Delete.cshtml" />
+    <Content Include="Views\SubCategories\Details.cshtml" />
+    <Content Include="Views\SubCategories\Edit.cshtml" />
+    <Content Include="Views\SubCategories\Index.cshtml" />
+    <Content Include="Views\Shared\SubTemplate\_Sub3.cshtml" />
+    <Content Include="Views\ParentCategories\Create.cshtml" />
+    <Content Include="Views\ParentCategories\Delete.cshtml" />
+    <Content Include="Views\ParentCategories\Details.cshtml" />
+    <Content Include="Views\ParentCategories\Edit.cshtml" />
+    <Content Include="Views\ParentCategories\Index.cshtml" />
+    <Content Include="Views\Shared\SubTemplate\_Slide.cshtml" />
+    <Content Include="Views\Shared\SubTemplate\_Youtube.cshtml" />
+    <Content Include="Views\Page\_Header.cshtml" />
+    <Content Include="Views\Page\_Footer.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
-    <Folder Include="Models\" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="fonts\glyphicons-halflings-regular.woff2" />
     <Content Include="fonts\glyphicons-halflings-regular.woff" />
     <Content Include="fonts\glyphicons-halflings-regular.ttf" />
     <Content Include="fonts\glyphicons-halflings-regular.eot" />
-    <Content Include="Content\bootstrap.min.css.map" />
-    <Content Include="Content\bootstrap.css.map" />
-    <Content Include="Content\bootstrap-theme.min.css.map" />
-    <Content Include="Content\bootstrap-theme.css.map" />
+    <Content Include="Content\VendorCSS\bootstrap.min.css.map" />
+    <Content Include="Content\VendorCSS\bootstrap.css.map" />
+    <Content Include="Content\VendorCSS\bootstrap-theme.min.css.map" />
+    <Content Include="Content\VendorCSS\bootstrap-theme.css.map" />
     <None Include="packages.config" />
-    <Content Include="Scripts\jquery-3.3.1.slim.min.map" />
-    <Content Include="Scripts\jquery-3.3.1.min.map" />
+    <Content Include="Scripts\VendorJS\jquery-3.3.1.slim.min.map" />
+    <Content Include="Scripts\VendorJS\jquery-3.3.1.min.map" />
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\Models\Models.csproj">
+      <Project>{92e5e682-a473-4410-b8cc-2ccb2da2aaea}</Project>
+      <Name>Models</Name>
+    </ProjectReference>
   </ItemGroup>
   <PropertyGroup>
     <VisualStudioVersion Condition="'$(VisualStudioVersion)' == ''">10.0</VisualStudioVersion>

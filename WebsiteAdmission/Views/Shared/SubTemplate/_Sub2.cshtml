@@ -1,0 +1,29 @@
+﻿@model IEnumerable<Models.EF.Post>
+@using WebsiteAdmission.Common
+@if (Model != null && Model.Count() > 0)
+{
+    int i = 0;
+    <div class="row6">
+        <div class="tuyensinhdaihoc">
+            <div class="title_tsdh">
+                <p><b>@Model.FirstOrDefault().SubCategory.Name</b></p>
+            </div>
+            <div class="midle_tsdh">
+                @foreach (var item in Model)
+                {
+                    if (i++ == 2)
+                    {
+                        break;
+                    }
+                    <div class="new_tsdh">
+                        <img src="@Constants.ImagesPosts.GetDescription() + @(item.SubCategory.SubCategoryID + "/" + item.CoverImage)" />
+                        <h4>
+                            @item.Title
+                        </h4>
+                        <a href="#">CHI TIẾT </a>
+                    </div>
+                }
+            </div>
+        </div>
+    </div>
+}

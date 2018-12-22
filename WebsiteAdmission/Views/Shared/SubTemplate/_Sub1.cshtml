@@ -1,0 +1,29 @@
+﻿@model IEnumerable<Models.EF.Post>
+@using WebsiteAdmission.Common
+@if (Model != null && Model.Count() > 0)
+{
+    int i = 0;
+    <div class="row5">
+        <div id="tts" class="tintuyensinh">
+            <div class="title">
+                <p><b>@Model.FirstOrDefault().SubCategory.Name</b></p>
+            </div>
+            @foreach (var item in Model)
+            {
+                if (i++ == 6)
+                {
+                    break;
+                }
+                <div class="new">
+                    <div class="new1">
+                        <img src="@Constants.ImagesPosts.GetDescription() + @(item.SubCategory.SubCategoryID + "/" + item.CoverImage)" />
+                        <p><b>@item.Title</b> </p><p>@item.PublishedTime</p>
+                    </div>
+                </div>
+            }
+        </div>
+        <div class="button_tinkhac">
+            <a href="#">Xem Thêm</a>
+        </div>
+    </div>
+}

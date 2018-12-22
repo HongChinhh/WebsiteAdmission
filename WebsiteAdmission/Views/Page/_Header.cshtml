@@ -1,0 +1,37 @@
+﻿<header>
+    <div class="row1">
+        <div id="header">
+            <div class="tieude">
+                <div class="logo">
+                    <img src="Content/images/logo.png" />
+                </div>
+                <div class="content_tieude">
+                    <h1><a href="../pages/trangchu.html">ĐẠI HỌC KINH TẾ HUẾ</a></h1>
+                    <p> Hue Unniversity Economic</p>
+                </div>
+
+            </div>
+            <div class="search">
+                <div class="nut">
+                    <button class="timkiem" type="submit" value="submit"> Tìm kiếm </button>
+                </div>
+                <div class="chu">
+                    <input type="text" name="" />
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class=" row2">
+        <div class="container_topnav">
+            <div class="topnav">
+                <ul>
+                    @foreach (var item in (IEnumerable<Models.EF.ParentCategory>)ViewBag.ParentCategories)
+                    {
+                        <li>@Html.ActionLink(item.NameParentCat, "Index", "Home", new { ParentCatPath = item.ParentCatPath }, null)</li>
+                    }
+                </ul>
+            </div>
+        </div>
+    </div>
+    <div class="line1"></div>
+</header>

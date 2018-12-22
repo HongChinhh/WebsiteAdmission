@@ -1,0 +1,27 @@
+﻿@model IEnumerable<Models.EF.Post>
+@using WebsiteAdmission.Common
+@if (Model != null && Model.Count() > 0)
+{
+    int i = 0;
+    <div class="row7">
+        <div class="lienketdaihoc">
+            <div class="title_lkdh">
+                <p><b>@Model.FirstOrDefault().SubCategory.Name</b></p>
+            </div>
+            @foreach (var item in Model)
+            {
+                if (i++ == 3)
+                {
+                    break;
+                }
+                <div class="new_lkdh">
+                    <img src="@Constants.ImagesPosts.GetDescription() + @(item.SubCategory.SubCategoryID + "/" + item.CoverImage)" />
+                    <p>
+                        Chương trình tiên tiến
+                    </p>
+                    <a href="#">CHI TIẾT </a>
+                </div>
+            }
+        </div>
+    </div>
+}

@@ -24,7 +24,11 @@ namespace Models.EF
         [StringLength(250)]
         public string ViewName { get; set; }
 
-        public int ParentCategory_ParentCategoryID { get; set; }
+        public int? Position { get; set; }
+
+        [Required]
+        [StringLength(50)]
+        public string ParentCategory_ParentCatPath { get; set; }
 
         public virtual ParentCategory ParentCategory { get; set; }
 
