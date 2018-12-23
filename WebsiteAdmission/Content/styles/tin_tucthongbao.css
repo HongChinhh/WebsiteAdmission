@@ -262,20 +262,23 @@ body {
   width: 1000px;
   margin: auto;
   background-color: #2e2828;
-  height: 258px;
+  height: 285px;
   font-family: Calibri; }
   .row9 .info_end1 {
     width: 31%;
     float: left;
     line-height: 15px;
-    margin-left: 47px; }
+    margin-left: 4%;
+    margin-top: 3%; }
     .row9 .info_end1 .title_end1 {
       float: left;
       color: #fef9f9; }
     .row9 .info_end1 .line2 {
-      border-top: 0.5px solid #171111;
-      width: 45%;
-      border-color: #b42e2e; }
+      float: left;
+      width: 50%;
+      border-color: #171111;
+      margin-left: -45%;
+      margin-top: 14%; }
     .row9 .info_end1 .content_end1 {
       float: left;
       color: #959595; }
@@ -283,13 +286,15 @@ body {
     width: 31%;
     float: left;
     line-height: 15px;
-    margin-left: -1px; }
+    margin-left: 3%;
+    margin-top: 2.5%; }
     .row9 .info_end2 .title_end2 {
       float: left;
-      color: #fef9f9; }
+      color: #fef9f9;
+      margin-bottom: -7%; }
     .row9 .info_end2 .line3 {
-      border-top: 0.5px solid #171111;
-      width: 54%; }
+      width: 54%;
+      margin-top: 18%; }
     .row9 .info_end2 .content_end2 {
       float: left;
       color: #959595; }
@@ -297,13 +302,16 @@ body {
     width: 27%;
     float: right;
     line-height: 15px;
-    margin-right: 64px; }
+    margin-right: 4%;
+    margin-top: 2.5%; }
     .row9 .info_end3 .title_end3 {
-      margin-left: 76px;
+      margin-left: 30%;
       color: #fef9f9; }
     .row9 .info_end3 .line4 {
-      width: 64%;
-      padding-left: 77px; }
+      width: 71%;
+      padding-left: 28%;
+      float: right;
+      margin-top: 0%; }
     .row9 .info_end3 .content_end3 {
       float: right;
       color: #959595; }

@@ -27,7 +27,7 @@
                 <ul>
                     @foreach (var item in (IEnumerable<Models.EF.ParentCategory>)ViewBag.ParentCategories)
                     {
-                        <li>@Html.ActionLink(item.NameParentCat, "Index", "Home", new { ParentCatPath = item.ParentCatPath }, null)</li>
+                        <li><a href="/@item.ParentCatPath">@item.NameParentCat</a></li>
                     }
                 </ul>
             </div>

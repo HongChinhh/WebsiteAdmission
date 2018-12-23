@@ -47,9 +47,10 @@ namespace WebsiteAdmission.Controllers
         // POST: Posts/Create
         // To protect from overposting attacks, please enable the specific properties you want to bind to, for 
         // more details see https://go.microsoft.com/fwlink/?LinkId=317598.
+        [ValidateInput(false)]
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Create([Bind(Include = "PostID,Title,Body,CoverImage,Author,CreatedTime,PublishedTime,Status,User_UserID,SubCategory_SubCategoryID")] Post post)
+        public ActionResult Create([Bind(Include = "PostID,Title,Body,CoverImage,Author,Status,User_UserID,SubCategory_SubCategoryID")] Post post)
         {
             if (ModelState.IsValid)
             {
@@ -85,10 +86,14 @@ namespace WebsiteAdmission.Controllers
         // more details see https://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Edit([Bind(Include = "PostID,Title,Body,CoverImage,Author,CreatedTime,PublishedTime,Status,User_UserID,SubCategory_SubCategoryID")] Post post)
+        public ActionResult Edit([Bind(Include = "PostID,Title,Body,CoverImage,Author,Status,User_UserID,SubCategory_SubCategoryID")] Post post)
         {
             if (ModelState.IsValid)
             {
+                if (post.Status == true && post.PublishedTime == null)
+                {
+                    post.PublishedTime = new DateTime();
+                }
                 db.Entry(post).State = EntityState.Modified;
                 db.SaveChanges();
                 return RedirectToAction("Index");

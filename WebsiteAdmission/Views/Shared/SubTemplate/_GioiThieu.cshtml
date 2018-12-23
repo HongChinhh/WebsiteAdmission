@@ -1,0 +1,17 @@
+﻿@model IEnumerable<Models.EF.Post>
+@using WebsiteAdmission.Common
+<div class="row3">
+    <div class="content_gioithieu">
+        @foreach (var item in Model)
+        {
+            <div class="new">
+                <div class="new_anh">
+                    <img src="@Constants.ImagesPosts.GetDescription() + @(item.SubCategory.SubCategoryID + "/" + item.CoverImage)" />
+                </div>
+                <div class="content_new">
+                    <p>item.Title</p>
+                </div>
+            </div>
+        }
+    </div>
+</div>

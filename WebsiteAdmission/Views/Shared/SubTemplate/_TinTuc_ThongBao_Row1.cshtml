@@ -1,0 +1,23 @@
+﻿@model IEnumerable<Models.EF.Post>
+@using WebsiteAdmission.Common
+@if (Model != null && Model.Count() > 0)
+{
+    int i = 0;
+    <div class="row3">
+        @foreach (var item in Model)
+        {
+            if (i++ == 6)
+            {
+                break;
+            }
+            <div class="container1">
+                <img src=".@Constants.ImagesPosts.GetDescription() + @(item.SubCategory.SubCategoryID + "/" + item.CoverImage)" alt="Cinque Terre" class="image">
+                <div class="topleft">@item.Title</div>
+
+                <div class="link_container1">
+                    @Html.ActionLink("Chi Tiết", "Detail", "Page", new { id = item.PostID })
+                </div>
+            </div>
+        }
+    </div>
+}

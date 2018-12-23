@@ -1,24 +1,9 @@
 ﻿@model IEnumerable<Models.EF.SubCategory>
 @using WebsiteAdmission.Common
 @{
-    Layout = null;
+    Layout = "_Layout.cshtml";
 }
-<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
-<html xmlns="http://www.w3.org/1999/xhtml">
-<head>
-    <title>@ViewBag.Title</title>
-    <meta charset="utf-8" />
-    @Styles.Render("~/Content/styles/trangchu")
-</head>
-<body>
-    @Html.Partial("_Header")
-    <content>
-        @foreach (var item in Model)
-        {
-            Html.RenderPartial(Constants.SubCategory.GetDescription() + item.ViewName + ".cshtml", item.Posts);
-        }
-    </content>
-    @Html.Partial("_Footer")
-    @Scripts.Render("~/Scripts/js/slide")
-</body>
-</html>
+@foreach (var item in Model)
+{
+    Html.RenderPartial(Constants.SubCategory.GetDescription() + item.ViewName + ".cshtml", item.Posts);
+}

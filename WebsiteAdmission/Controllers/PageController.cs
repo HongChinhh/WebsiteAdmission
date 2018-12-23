@@ -9,11 +9,18 @@ namespace WebsiteAdmission.Controllers
     {
         private WebsiteAdmissionDbContext db = new WebsiteAdmissionDbContext();
         // GET: Home
-        public ActionResult Index(string ParentCatPath)
+        public ActionResult Index(string id)
         {
             ViewBag.ParentCategories = db.ParentCategories.OrderBy(s => s.Position).ToList();
-            var subCategories = db.SubCategories.Where(s => s.ParentCategory_ParentCatPath == ParentCatPath).OrderBy(s => s.Position).ToList();
+            var subCategories = db.SubCategories.Where(s => s.ParentCategory_ParentCatPath == id).OrderBy(s => s.Position).ToList();
             return View(subCategories);
+        }
+
+        public ActionResult Detail(int id)
+        {
+            ViewBag.ParentCategories = db.ParentCategories.OrderBy(s => s.Position).ToList();
+            var post = db.Posts.Where(s => s.PostID == id).ToList();
+            return View(post);
         }
     }
 }

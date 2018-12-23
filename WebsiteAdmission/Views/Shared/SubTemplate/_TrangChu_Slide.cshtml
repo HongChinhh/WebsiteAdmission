@@ -6,16 +6,16 @@
 <div class="row4">
     <div class="slide slideshow-container">
         <div class="mySlides fade">
-            <img class="slide-jpg" src="Content/images/slide1.jpg" alt="slide" />
+            <img class="slide-jpg" src="~/Content/images/slide1.jpg" alt="slide" />
         </div>
         <div class="mySlides fade">
-            <img class="slide-jpg" src="Content/images/slide2.jpg" alt="slide" />
+            <img class="slide-jpg" src="~/Content/images/slide2.jpg" alt="slide" />
         </div>
         <div class="mySlides fade">
-            <img class="slide-jpg" src="Content/images/slide3.jpg" alt="slide" />
+            <img class="slide-jpg" src="~/Content/images/slide3.jpg" alt="slide" />
         </div>
         <div class="mySlides fade">
-            <img class="slide-jpg" src="Content/images/slide4.jpg" alt="slide" />
+            <img class="slide-jpg" src="~/Content/images/slide4.jpg" alt="slide" />
         </div>
     </div>
     <div class="point_slide">
@@ -25,3 +25,7 @@
         <span class="dot" onclick="currentSlide(4)"></span>
     </div>
 </div>
+@section script
+{
+    @Scripts.Render("~/Scripts/js/slide")
+}

@@ -12,7 +12,7 @@ namespace Models.EF
         {
         }
 
-        public virtual DbSet<FeedBack> FeedBacks { get; set; }
+        public virtual DbSet<Feedback> Feedbacks { get; set; }
         public virtual DbSet<ParentCategory> ParentCategories { get; set; }
         public virtual DbSet<Post> Posts { get; set; }
         public virtual DbSet<Privilege> Privileges { get; set; }
@@ -71,7 +71,7 @@ namespace Models.EF
                 .IsUnicode(false);
 
             modelBuilder.Entity<User>()
-                .HasMany(e => e.FeedBacks)
+                .HasMany(e => e.Feedbacks)
                 .WithRequired(e => e.User)
                 .HasForeignKey(e => e.User_UserID)
                 .WillCascadeOnDelete(false);

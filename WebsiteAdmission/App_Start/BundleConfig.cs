@@ -22,14 +22,21 @@ namespace WebsiteAdmission
             bundles.Add(new ScriptBundle("~/bundles/bootstrap").Include(
                       "~/Scripts/VendorJS/bootstrap.js"));
 
+            bundles.Add(new ScriptBundle("~/bundles/datetimepicker").Include(
+                      "~/Scripts/VendorJS/moment.js").Include(
+                      "~/Scripts/VendorJS/bootstrap-datetimepicker.js"));
+
             bundles.Add(new StyleBundle("~/Content/css").Include(
-                      "~/Content/VendorCSS/bootstrap.css",
+                      "~/Content/VendorCSS/bootstrap.css").Include(
                       "~/Content/VendorCSS/site.css"));
+
+            bundles.Add(new StyleBundle("~/Content/datetimepicker").Include(
+                      "~/Content/VendorCSS/bootstrap-datetimepicker.css"));
             // trang chu
             bundles.Add(new StyleBundle("~/Content/styles/trangchu").Include(
                      "~/Content/styles/trangchu.css"));
             bundles.Add(new ScriptBundle("~/Scripts/js/slide").Include(
-                      "~/Scripts/js/slide.js"));
+                  "~/Scripts/js/slide.js"));
         }
     }
 }

@@ -6,10 +6,10 @@ namespace Models.EF
     using System.ComponentModel.DataAnnotations.Schema;
     using System.Data.Entity.Spatial;
 
-    [Table("FeedBack")]
-    public partial class FeedBack
+    [Table("Feedback")]
+    public partial class Feedback
     {
-        public int FeedBackID { get; set; }
+        public int FeedbackID { get; set; }
 
         [Required]
         [StringLength(250)]
