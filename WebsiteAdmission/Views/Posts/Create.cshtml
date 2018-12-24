@@ -8,7 +8,7 @@
 <h2>Create</h2>
 
 
-@using (Html.BeginForm()) 
+@using (Html.BeginForm(null, null, FormMethod.Post, htmlAttributes: new { @id="formCreatePost" })) 
 {
     @Html.AntiForgeryToken()
     
@@ -27,7 +27,9 @@
         <div class="form-group">
             @Html.LabelFor(model => model.Body, htmlAttributes: new { @class = "control-label col-md-2" })
             <div class="col-md-10">
-                @Html.TextAreaFor(model => model.Body, new { htmlAttributes = new { @class = "form-control" } })
+                <div id="BodyToolbar"></div>
+                <div id="BodyEditor" style="border: 1px solid #ccc;border-top: 0;"></div>
+                @Html.HiddenFor(model => model.Body)
                 @Html.ValidationMessageFor(model => model.Body, "", new { @class = "text-danger" })
             </div>
         </div>
@@ -81,28 +83,29 @@
         </div>
     </div>
 }
-
 <div>
     @Html.ActionLink("Back to List", "Index")
 </div>
-
 @section Scripts {
     @Scripts.Render("~/bundles/jqueryval")
     <script src="~/Scripts/VendorJS/ckeditor.js"></script>
     <script>
-        ClassicEditor
-            .create(document.querySelector('#Body'), {
-                toolbar: ['heading', '|', 'bold', 'italic', 'link', 'bulletedList', 'numberedList', 'blockQuote'],
-                heading: {
-                    options: [
-                        { model: 'paragraph', title: 'Paragraph', class: 'ck-heading_paragraph' },
-                        { model: 'heading1', view: 'h1', title: 'Heading 1', class: 'ck-heading_heading1' },
-                        { model: 'heading2', view: 'h2', title: 'Heading 2', class: 'ck-heading_heading2' }
-                    ]
-                }
+        $('#formCreatePost').validate({
+            ignore: [],
+        });
+        DecoupledEditor
+            .create(document.querySelector('#BodyEditor'))
+            .then(editor => {
+                $('#BodyToolbar').html(editor.ui.view.toolbar.element);
             })
-            .catch(error => {
-                console.log(error);
+            .catch(err => {
+                console.error(err.stack);
             });
+        $('#BodyEditor').focusout(function () {
+            $('#Body').val($(this).html());
+            if ($(this).html().trim() != '') {
+                $('[data-valmsg-for=Body]').text(null);
+            }
+        });
     </script>
 }
