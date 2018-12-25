@@ -94,22 +94,25 @@
     @Scripts.Render("~/bundles/jqueryval")
     <script src="~/Scripts/VendorJS/ckeditor.js"></script>
     <script>
-        $('#formEditPost').validate({
-            ignore: [],
-        });
-        DecoupledEditor
-            .create(document.querySelector('#BodyEditor'))
-            .then(editor => {
-                $('#BodyToolbar').html(editor.ui.view.toolbar.element);
-            })
-            .catch(err => {
-                console.error(err.stack);
-            });
-        $('#BodyEditor').focusout(function () {
-            $('#Body').val($(this).html());
-            if ($(this).html().trim() != '') {
-                $('[data-valmsg-for=Body]').text(null);
-            }
-        });
+
+    </script>
+    <script>
+        ////$('#formEditPost').validate({
+        ////    ignore: [],
+        ////});
+        //DecoupledEditor
+        //    .create(document.querySelector('#BodyEditor'))
+        //    .then(editor => {
+        //        $('#BodyToolbar').html(editor.ui.view.toolbar.element);
+        //    })
+        //    .catch(err => {
+        //        console.error(err.stack);
+        //    });
+        ////$('#BodyEditor').focusout(function () {
+        ////    $('#Body').val($(this).html());
+        ////    if ($(this).html().trim() != '') {
+        ////        $('[data-valmsg-for=Body]').text(null);
+        ////    }
+        ////});
     </script>
 }

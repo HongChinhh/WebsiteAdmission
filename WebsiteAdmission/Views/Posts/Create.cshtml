@@ -8,10 +8,10 @@
 <h2>Create</h2>
 
 
-@using (Html.BeginForm(null, null, FormMethod.Post, htmlAttributes: new { @id="formCreatePost" })) 
+@using (Html.BeginForm(null, null, FormMethod.Post, htmlAttributes: new { @id = "formCreatePost" }))
 {
     @Html.AntiForgeryToken()
-    
+
     <div class="form-horizontal">
         <h4>Post</h4>
         <hr />
@@ -87,14 +87,14 @@
     @Html.ActionLink("Back to List", "Index")
 </div>
 @section Scripts {
-    @Scripts.Render("~/bundles/jqueryval")
     <script src="~/Scripts/VendorJS/ckeditor.js"></script>
     <script>
-        $('#formCreatePost').validate({
-            ignore: [],
-        });
         DecoupledEditor
-            .create(document.querySelector('#BodyEditor'))
+            .create(document.querySelector('#BodyEditor'), {
+                ckfinder: {
+                    uploadUrl: '/Posts/UploadIMG'
+                },
+            })
             .then(editor => {
                 $('#BodyToolbar').html(editor.ui.view.toolbar.element);
             })
@@ -106,6 +106,12 @@
             if ($(this).html().trim() != '') {
                 $('[data-valmsg-for=Body]').text(null);
             }
+        });
+    </script>
+    @Scripts.Render("~/bundles/jqueryval")
+    <script>
+        $("#formCreatePost").validate({
+            ignore: []
         });
     </script>
 }

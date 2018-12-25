@@ -2,11 +2,14 @@
 using System.Collections.Generic;
 using System.Data;
 using System.Data.Entity;
+using System.IO;
 using System.Linq;
 using System.Net;
 using System.Web;
 using System.Web.Mvc;
 using Models.EF;
+using Newtonsoft.Json;
+using Newtonsoft.Json.Linq;
 
 namespace WebsiteAdmission.Controllers
 {
@@ -49,8 +52,8 @@ namespace WebsiteAdmission.Controllers
         // more details see https://go.microsoft.com/fwlink/?LinkId=317598.
         [ValidateInput(false)]
         [HttpPost]
-        [ValidateAntiForgeryToken]
-        public ActionResult Create([Bind(Include = "PostID,Title,Body,CoverImage,Author,Status,User_UserID,SubCategory_SubCategoryID")] Post post)
+        //[ValidateAntiForgeryToken]
+        public ActionResult Create([Bind(Include = "PostID,Title,Body,CoverImage,Author,Status,User_UserID,SubCategory_SubCategoryID")] Post post, string upload, string ckCsrfToken)
         {
             if (ModelState.IsValid)
             {
@@ -127,6 +130,22 @@ namespace WebsiteAdmission.Controllers
             db.Posts.Remove(post);
             db.SaveChanges();
             return RedirectToAction("Index");
+        }
+
+        public object UploadIMG(HttpPostedFileBase upload, string ckCsrfToken)
+        {
+            dynamic response = new JObject();
+            response.uploaded = true;
+
+            string theFileName = Path.GetFileName(upload.FileName);
+            byte[] thePictureAsBytes = new byte[upload.ContentLength];
+            using (BinaryReader theReader = new BinaryReader(upload.InputStream))
+            {
+                thePictureAsBytes = theReader.ReadBytes(upload.ContentLength);
+            }
+            string thePictureDataAsString = Convert.ToBase64String(thePictureAsBytes);
+            response.url = "data:" + upload.ContentType + ";base64," + thePictureDataAsString;
+            return response;
         }
 
         protected override void Dispose(bool disposing)
