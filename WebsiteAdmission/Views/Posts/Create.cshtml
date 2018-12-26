@@ -1,36 +1,41 @@
 ﻿@model Models.EF.Post
 
 @{
+    /**/
+
     ViewBag.Title = "Create";
     Layout = "~/Views/Shared/_Layout.cshtml";
 }
 
 <h2>Create</h2>
-
-
+<h4>Post</h4>
+<hr />
+<div class="form-horizontal">
+    <div class="form-group">
+        @Html.LabelFor(model => model.Body, htmlAttributes: new { @class = "control-label col-md-2" })
+        <div class="col-md-10">
+            <div id="BodyToolbar"></div>
+            <div id="BodyEditor" style="border: 1px solid #ccc;border-top: 0;"></div>
+        </div>
+    </div>
+</div>
 @using (Html.BeginForm(null, null, FormMethod.Post, htmlAttributes: new { @id = "formCreatePost" }))
 {
     @Html.AntiForgeryToken()
-
     <div class="form-horizontal">
-        <h4>Post</h4>
-        <hr />
+        <div class="form-group">
+            <div class="col-md-10">
+                @Html.HiddenFor(model => model.Body)
+                @Html.ValidationMessageFor(model => model.Body, "", new { @class = "text-danger" })
+            </div>
+        </div>
+
         @Html.ValidationSummary(true, "", new { @class = "text-danger" })
         <div class="form-group">
             @Html.LabelFor(model => model.Title, htmlAttributes: new { @class = "control-label col-md-2" })
             <div class="col-md-10">
                 @Html.EditorFor(model => model.Title, new { htmlAttributes = new { @class = "form-control" } })
                 @Html.ValidationMessageFor(model => model.Title, "", new { @class = "text-danger" })
-            </div>
-        </div>
-
-        <div class="form-group">
-            @Html.LabelFor(model => model.Body, htmlAttributes: new { @class = "control-label col-md-2" })
-            <div class="col-md-10">
-                <div id="BodyToolbar"></div>
-                <div id="BodyEditor" style="border: 1px solid #ccc;border-top: 0;"></div>
-                @Html.HiddenFor(model => model.Body)
-                @Html.ValidationMessageFor(model => model.Body, "", new { @class = "text-danger" })
             </div>
         </div>
 
@@ -107,11 +112,11 @@
                 $('[data-valmsg-for=Body]').text(null);
             }
         });
-    </script>
-    @Scripts.Render("~/bundles/jqueryval")
-    <script>
-        $("#formCreatePost").validate({
-            ignore: []
+        $(document).ready(function () {
+            $.validator.setDefaults({
+                ignore: []
+            });
         });
     </script>
+    @Scripts.Render("~/bundles/jqueryval")
 }

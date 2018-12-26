@@ -8,8 +8,9 @@ using System.Net;
 using System.Web;
 using System.Web.Mvc;
 using Models.EF;
-using Newtonsoft.Json;
+using System.Windows.Forms;
 using Newtonsoft.Json.Linq;
+using System.Threading.Tasks;
 
 namespace WebsiteAdmission.Controllers
 {
@@ -57,6 +58,17 @@ namespace WebsiteAdmission.Controllers
         {
             if (ModelState.IsValid)
             {
+                int postIDNext = db.Posts.Max(s => s.PostID) + 1;
+                List<string> imgScrs = new List<string>();
+                WebBrowser webBrowser = new WebBrowser
+                {
+                    DocumentText = post.Body
+                };
+                HtmlElementCollection htmlElementCollection = webBrowser.Document.GetElementsByTagName("img");
+                foreach (HtmlElement htmlElement in htmlElementCollection)
+                {
+                    var s = htmlElement.GetAttribute("src");
+                }
                 db.Posts.Add(post);
                 db.SaveChanges();
                 return RedirectToAction("Index");

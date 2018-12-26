@@ -1,38 +1,44 @@
 ﻿@model Models.EF.Post
 
 @{
+    /**/
+
     ViewBag.Title = "Edit";
     Layout = "~/Views/Shared/_Layout.cshtml";
 }
 
 <h2>Edit</h2>
-
-
+<h4>Post</h4>
+<hr />
+<div class="form-horizontal">
+    <div class="form-group">
+        @Html.LabelFor(model => model.Body, htmlAttributes: new { @class = "control-label col-md-2" })
+        <div class="col-md-10">
+            <div id="BodyToolbar"></div>
+            <div id="BodyEditor" style="border: 1px solid #ccc;border-top: 0;">
+                @Html.Raw(Model.Body)
+            </div>
+        </div>
+    </div>
+</div>
 @using (Html.BeginForm(null, null, FormMethod.Post, htmlAttributes: new { @id = "formEditPost" }))
 {
     @Html.AntiForgeryToken()
 
     <div class="form-horizontal">
-        <h4>Post</h4>
-        <hr />
+        <div class="form-group">
+            <div class="col-md-10">
+                @Html.HiddenFor(model => model.Body)
+                @Html.ValidationMessageFor(model => model.Body, "", new { @class = "text-danger" })
+            </div>
+        </div>
         @Html.ValidationSummary(true, "", new { @class = "text-danger" })
-        @Html.HiddenFor(model => model.PostID)
 
         <div class="form-group">
             @Html.LabelFor(model => model.Title, htmlAttributes: new { @class = "control-label col-md-2" })
             <div class="col-md-10">
                 @Html.EditorFor(model => model.Title, new { htmlAttributes = new { @class = "form-control" } })
                 @Html.ValidationMessageFor(model => model.Title, "", new { @class = "text-danger" })
-            </div>
-        </div>
-
-        <div class="form-group">
-            @Html.LabelFor(model => model.Body, htmlAttributes: new { @class = "control-label col-md-2" })
-            <div class="col-md-10">
-                <div id="BodyToolbar"></div>
-                <div id="BodyEditor" style="border: 1px solid #ccc;border-top: 0;"></div>
-                @Html.HiddenFor(model => model.Body)
-                @Html.ValidationMessageFor(model => model.Body, "", new { @class = "text-danger" })
             </div>
         </div>
 
@@ -94,25 +100,29 @@
     @Scripts.Render("~/bundles/jqueryval")
     <script src="~/Scripts/VendorJS/ckeditor.js"></script>
     <script>
-
+        DecoupledEditor
+            .create(document.querySelector('#BodyEditor'), {
+                ckfinder: {
+                    uploadUrl: '/Posts/UploadIMG'
+                },
+            })
+            .then(editor => {
+                $('#BodyToolbar').html(editor.ui.view.toolbar.element);
+            })
+            .catch(err => {
+                console.error(err.stack);
+            });
+        $('#BodyEditor').focusout(function () {
+            $('#Body').val($(this).html());
+            if ($(this).html().trim() != '') {
+                $('[data-valmsg-for=Body]').text(null);
+            }
+        });
+        $(document).ready(function () {
+            $.validator.setDefaults({
+                ignore: []
+            });
+        });
     </script>
-    <script>
-        ////$('#formEditPost').validate({
-        ////    ignore: [],
-        ////});
-        //DecoupledEditor
-        //    .create(document.querySelector('#BodyEditor'))
-        //    .then(editor => {
-        //        $('#BodyToolbar').html(editor.ui.view.toolbar.element);
-        //    })
-        //    .catch(err => {
-        //        console.error(err.stack);
-        //    });
-        ////$('#BodyEditor').focusout(function () {
-        ////    $('#Body').val($(this).html());
-        ////    if ($(this).html().trim() != '') {
-        ////        $('[data-valmsg-for=Body]').text(null);
-        ////    }
-        ////});
-    </script>
+    @Scripts.Render("~/bundles/jqueryval")
 }
