@@ -24,6 +24,7 @@
     @Html.AntiForgeryToken()
     <div class="form-horizontal">
         <div class="form-group">
+            <div class="control-label col-md-2"></div>
             <div class="col-md-10">
                 @Html.HiddenFor(model => model.Body)
                 @Html.ValidationMessageFor(model => model.Body, "", new { @class = "text-danger" })
@@ -83,7 +84,7 @@
 
         <div class="form-group">
             <div class="col-md-offset-2 col-md-10">
-                <input type="submit" value="Create" class="btn btn-default" />
+                <input type="submit" value="Create" class="btn btn-default" id="btn-submit" />
             </div>
         </div>
     </div>
@@ -109,6 +110,12 @@
         $('#BodyEditor').focusout(function () {
             $('#Body').val($(this).html());
             if ($(this).html().trim() != '') {
+                $('[data-valmsg-for=Body]').text(null);
+            }
+        });
+        $('#btn-submit').click(function () {
+            $('#Body').val($('#BodyEditor').html());
+            if ($('#BodyEditor').html().trim() != '') {
                 $('[data-valmsg-for=Body]').text(null);
             }
         });

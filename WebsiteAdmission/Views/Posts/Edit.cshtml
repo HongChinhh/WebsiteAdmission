@@ -86,7 +86,7 @@
 
         <div class="form-group">
             <div class="col-md-offset-2 col-md-10">
-                <input type="submit" value="Save" class="btn btn-default" />
+                <input type="submit" value="Save" class="btn btn-default" id="btn-submit" />
             </div>
         </div>
     </div>
@@ -115,6 +115,12 @@
         $('#BodyEditor').focusout(function () {
             $('#Body').val($(this).html());
             if ($(this).html().trim() != '') {
+                $('[data-valmsg-for=Body]').text(null);
+            }
+        });
+        $('#btn-submit').click(function () {
+            $('#Body').val($('#BodyEditor').html());
+            if ($('#BodyEditor').html().trim() != '') {
                 $('[data-valmsg-for=Body]').text(null);
             }
         });

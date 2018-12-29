@@ -7,10 +7,10 @@ using System.Linq;
 using System.Net;
 using System.Web;
 using System.Web.Mvc;
+using HtmlAgilityPack;
 using Models.EF;
-using System.Windows.Forms;
 using Newtonsoft.Json.Linq;
-using System.Threading.Tasks;
+using WebsiteAdmission.Common;
 
 namespace WebsiteAdmission.Controllers
 {
@@ -58,19 +58,25 @@ namespace WebsiteAdmission.Controllers
         {
             if (ModelState.IsValid)
             {
-                int postIDNext = db.Posts.Max(s => s.PostID) + 1;
-                List<string> imgScrs = new List<string>();
-                WebBrowser webBrowser = new WebBrowser
-                {
-                    DocumentText = post.Body
-                };
-                HtmlElementCollection htmlElementCollection = webBrowser.Document.GetElementsByTagName("img");
-                foreach (HtmlElement htmlElement in htmlElementCollection)
-                {
-                    var s = htmlElement.GetAttribute("src");
-                }
-                db.Posts.Add(post);
+                string bodyHtml = post.Body;
+                post.Body = "temp";
+                Post postSaved = db.Posts.Add(post);
                 db.SaveChanges();
+                HtmlDocument htmlDocument = new HtmlDocument();
+                htmlDocument.LoadHtml(bodyHtml);
+                int i = 0;
+                foreach (var item in htmlDocument.DocumentNode.SelectNodes("//img"))
+                {
+                    i++;
+                    var bytes = Convert.FromBase64String(item.Attributes["src"].Value.Split(',')[1]);
+                    using (var imageFile = new FileStream(Constants.ImagesPosts.GetDescription() + post.PostID + "/", FileMode.Create))
+                    {
+                        imageFile.Write(bytes, 0, bytes.Length);
+                        imageFile.Flush();
+                    }
+                    item.Attributes["src"].Value = post.PostID.ToString() + "_" + i;
+                }
+                var s = htmlDocument.DocumentNode.OuterHtml;
                 return RedirectToAction("Index");
             }
 
