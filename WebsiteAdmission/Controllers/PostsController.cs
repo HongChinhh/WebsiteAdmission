@@ -7,10 +7,8 @@ using System.Linq;
 using System.Net;
 using System.Web;
 using System.Web.Mvc;
-using HtmlAgilityPack;
-using Models.EF;
+using WebsiteAdmission.Models;
 using Newtonsoft.Json.Linq;
-using WebsiteAdmission.Common;
 
 namespace WebsiteAdmission.Controllers
 {
@@ -62,21 +60,7 @@ namespace WebsiteAdmission.Controllers
                 post.Body = "temp";
                 Post postSaved = db.Posts.Add(post);
                 db.SaveChanges();
-                HtmlDocument htmlDocument = new HtmlDocument();
-                htmlDocument.LoadHtml(bodyHtml);
-                int i = 0;
-                foreach (var item in htmlDocument.DocumentNode.SelectNodes("//img"))
-                {
-                    i++;
-                    var bytes = Convert.FromBase64String(item.Attributes["src"].Value.Split(',')[1]);
-                    using (var imageFile = new FileStream(Constants.ImagesPosts.GetDescription() + post.PostID + "/", FileMode.Create))
-                    {
-                        imageFile.Write(bytes, 0, bytes.Length);
-                        imageFile.Flush();
-                    }
-                    item.Attributes["src"].Value = post.PostID.ToString() + "_" + i;
-                }
-                var s = htmlDocument.DocumentNode.OuterHtml;
+                //PostDAO()
                 return RedirectToAction("Index");
             }
 

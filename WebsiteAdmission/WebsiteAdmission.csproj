@@ -61,6 +61,8 @@
     <Reference Include="System" />
     <Reference Include="System.Data" />
     <Reference Include="System.Drawing" />
+    <Reference Include="System.Runtime.Serialization" />
+    <Reference Include="System.Security" />
     <Reference Include="System.Web.DynamicData" />
     <Reference Include="System.Web.Entity" />
     <Reference Include="System.Web.ApplicationServices" />
@@ -149,9 +151,18 @@
     <Compile Include="Controllers\SlideImagesController.cs" />
     <Compile Include="Controllers\SubCategoriesController.cs" />
     <Compile Include="Controllers\UsersController.cs" />
+    <Compile Include="DAO\PostDAO.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
+    <Compile Include="Models\Feedback.cs" />
+    <Compile Include="Models\ParentCategory.cs" />
+    <Compile Include="Models\Post.cs" />
+    <Compile Include="Models\Privilege.cs" />
+    <Compile Include="Models\SlideImage.cs" />
+    <Compile Include="Models\SubCategory.cs" />
+    <Compile Include="Models\User.cs" />
+    <Compile Include="Models\WebsiteAdmissionDbContext.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
@@ -278,6 +289,7 @@
     <Content Include="Content\fonts\glyphicons-halflings-regular.ttf" />
     <Content Include="Content\fonts\glyphicons-halflings-regular.svg" />
     <Content Include="Content\fonts\glyphicons-halflings-regular.eot" />
+    <Content Include="WebsiteAdmissionDatabase.sql" />
     <None Include="Scripts\VendorJS\jquery-3.3.1.intellisense.js" />
     <Content Include="Scripts\VendorJS\ckeditor.js" />
     <Content Include="Scripts\VendorJS\jquery-3.3.1.js" />
@@ -314,32 +326,28 @@
     <Content Include="Views\Page\Name.cshtml" />
     <Content Include="Views\Shared\SubTemplate\_TrangChu_Row1.cshtml" />
     <Content Include="Views\Shared\SubTemplate\_TrangChu_Row2.cshtml" />
-    <Content Include="Views\SubCategories\Create.cshtml" />
-    <Content Include="Views\SubCategories\Delete.cshtml" />
-    <Content Include="Views\SubCategories\Details.cshtml" />
-    <Content Include="Views\SubCategories\Edit.cshtml" />
-    <Content Include="Views\SubCategories\Index.cshtml" />
     <Content Include="Views\Shared\SubTemplate\_TrangChu_Row3.cshtml" />
-    <Content Include="Views\ParentCategories\Create.cshtml" />
-    <Content Include="Views\ParentCategories\Delete.cshtml" />
-    <Content Include="Views\ParentCategories\Details.cshtml" />
-    <Content Include="Views\ParentCategories\Edit.cshtml" />
-    <Content Include="Views\ParentCategories\Index.cshtml" />
     <Content Include="Views\Shared\SubTemplate\_TrangChu_Slide.cshtml" />
     <Content Include="Views\Shared\SubTemplate\_TrangChu_Youtube.cshtml" />
     <Content Include="Views\Page\_Header.cshtml" />
     <Content Include="Views\Page\_Footer.cshtml" />
     <Content Include="Views\Page\_Layout.cshtml" />
-    <Content Include="Views\Users\Create.cshtml" />
-    <Content Include="Views\Users\Delete.cshtml" />
-    <Content Include="Views\Users\Details.cshtml" />
-    <Content Include="Views\Users\Edit.cshtml" />
-    <Content Include="Views\Users\Index.cshtml" />
+    <Content Include="Views\Shared\SubTemplate\_GioiThieu.cshtml" />
+    <Content Include="Views\Shared\SubTemplate\_TinTuc_ThongBao_Row1.cshtml" />
+    <Content Include="Views\Shared\SubTemplate\_TinTuc_ThongBao_Row2.cshtml" />
+    <Content Include="Views\Shared\SubTemplate\_TinTuc_ThongBao_Row3.cshtml" />
+    <Content Include="Views\Shared\SubTemplate\_TinTuc_ThongBao_Row4.cshtml" />
+    <Content Include="Views\Shared\SubTemplate\_TinTuc_ThongBao_Row5.cshtml" />
     <Content Include="Views\Feedbacks\Create.cshtml" />
     <Content Include="Views\Feedbacks\Delete.cshtml" />
     <Content Include="Views\Feedbacks\Details.cshtml" />
     <Content Include="Views\Feedbacks\Edit.cshtml" />
     <Content Include="Views\Feedbacks\Index.cshtml" />
+    <Content Include="Views\ParentCategories\Create.cshtml" />
+    <Content Include="Views\ParentCategories\Delete.cshtml" />
+    <Content Include="Views\ParentCategories\Details.cshtml" />
+    <Content Include="Views\ParentCategories\Edit.cshtml" />
+    <Content Include="Views\ParentCategories\Index.cshtml" />
     <Content Include="Views\Privileges\Create.cshtml" />
     <Content Include="Views\Privileges\Delete.cshtml" />
     <Content Include="Views\Privileges\Details.cshtml" />
@@ -350,12 +358,16 @@
     <Content Include="Views\SlideImages\Details.cshtml" />
     <Content Include="Views\SlideImages\Edit.cshtml" />
     <Content Include="Views\SlideImages\Index.cshtml" />
-    <Content Include="Views\Shared\SubTemplate\_GioiThieu.cshtml" />
-    <Content Include="Views\Shared\SubTemplate\_TinTuc_ThongBao_Row1.cshtml" />
-    <Content Include="Views\Shared\SubTemplate\_TinTuc_ThongBao_Row2.cshtml" />
-    <Content Include="Views\Shared\SubTemplate\_TinTuc_ThongBao_Row3.cshtml" />
-    <Content Include="Views\Shared\SubTemplate\_TinTuc_ThongBao_Row4.cshtml" />
-    <Content Include="Views\Shared\SubTemplate\_TinTuc_ThongBao_Row5.cshtml" />
+    <Content Include="Views\SubCategories\Create.cshtml" />
+    <Content Include="Views\SubCategories\Delete.cshtml" />
+    <Content Include="Views\SubCategories\Details.cshtml" />
+    <Content Include="Views\SubCategories\Edit.cshtml" />
+    <Content Include="Views\SubCategories\Index.cshtml" />
+    <Content Include="Views\Users\Create.cshtml" />
+    <Content Include="Views\Users\Delete.cshtml" />
+    <Content Include="Views\Users\Details.cshtml" />
+    <Content Include="Views\Users\Edit.cshtml" />
+    <Content Include="Views\Users\Index.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
@@ -372,12 +384,6 @@
     <None Include="packages.config" />
     <Content Include="Scripts\VendorJS\jquery-3.3.1.slim.min.map" />
     <Content Include="Scripts\VendorJS\jquery-3.3.1.min.map" />
-  </ItemGroup>
-  <ItemGroup>
-    <ProjectReference Include="..\Models\Models.csproj">
-      <Project>{92e5e682-a473-4410-b8cc-2ccb2da2aaea}</Project>
-      <Name>Models</Name>
-    </ProjectReference>
   </ItemGroup>
   <PropertyGroup>
     <VisualStudioVersion Condition="'$(VisualStudioVersion)' == ''">10.0</VisualStudioVersion>

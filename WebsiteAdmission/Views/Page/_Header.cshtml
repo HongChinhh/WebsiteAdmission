@@ -25,7 +25,7 @@
         <div class="container_topnav">
             <div class="topnav">
                 <ul>
-                    @foreach (var item in (IEnumerable<Models.EF.ParentCategory>)ViewBag.ParentCategories)
+                    @foreach (var item in (IEnumerable<WebsiteAdmission.Models.ParentCategory>)ViewBag.ParentCategories)
                     {
                         <li><a href="/@item.ParentCatPath">@item.NameParentCat</a></li>
                     }

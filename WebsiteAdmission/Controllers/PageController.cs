@@ -1,7 +1,7 @@
 ﻿using System.Data.Entity;
 using System.Linq;
 using System.Web.Mvc;
-using Models.EF;
+using WebsiteAdmission.Models;
 
 namespace WebsiteAdmission.Controllers
 {

@@ -6,7 +6,7 @@ using System.Linq;
 using System.Net;
 using System.Web;
 using System.Web.Mvc;
-using Models.EF;
+using WebsiteAdmission.Models;
 
 namespace WebsiteAdmission.Controllers
 {
@@ -17,7 +17,7 @@ namespace WebsiteAdmission.Controllers
         // GET: SubCategories
         public ActionResult Index()
         {
-            var subCategories = db.SubCategories.OrderBy(s => s.Position).Include(s => s.ParentCategory);
+            var subCategories = db.SubCategories.Include(s => s.ParentCategory);
             return View(subCategories.ToList());
         }
 

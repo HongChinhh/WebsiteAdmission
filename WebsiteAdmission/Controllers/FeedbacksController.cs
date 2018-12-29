@@ -6,7 +6,7 @@ using System.Linq;
 using System.Net;
 using System.Web;
 using System.Web.Mvc;
-using Models.EF;
+using WebsiteAdmission.Models;
 
 namespace WebsiteAdmission.Controllers
 {
@@ -17,8 +17,8 @@ namespace WebsiteAdmission.Controllers
         // GET: Feedbacks
         public ActionResult Index()
         {
-            var feedBacks = db.Feedbacks.Include(f => f.User);
-            return View(feedBacks.ToList());
+            var feedbacks = db.Feedbacks.Include(f => f.User);
+            return View(feedbacks.ToList());
         }
 
         // GET: Feedbacks/Details/5
@@ -28,12 +28,12 @@ namespace WebsiteAdmission.Controllers
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
-            Feedback feedBack = db.Feedbacks.Find(id);
-            if (feedBack == null)
+            Feedback feedback = db.Feedbacks.Find(id);
+            if (feedback == null)
             {
                 return HttpNotFound();
             }
-            return View(feedBack);
+            return View(feedback);
         }
 
         // GET: Feedbacks/Create
@@ -48,17 +48,17 @@ namespace WebsiteAdmission.Controllers
         // more details see https://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Create([Bind(Include = "FeedbackID,Content,User_UserID,Post_PostID")] Feedback feedBack)
+        public ActionResult Create([Bind(Include = "FeedbackID,Content,User_UserID,Post_PostID")] Feedback feedback)
         {
             if (ModelState.IsValid)
             {
-                db.Feedbacks.Add(feedBack);
+                db.Feedbacks.Add(feedback);
                 db.SaveChanges();
                 return RedirectToAction("Index");
             }
 
-            ViewBag.User_UserID = new SelectList(db.Users, "UserID", "UserName", feedBack.User_UserID);
-            return View(feedBack);
+            ViewBag.User_UserID = new SelectList(db.Users, "UserID", "UserName", feedback.User_UserID);
+            return View(feedback);
         }
 
         // GET: Feedbacks/Edit/5
@@ -68,13 +68,13 @@ namespace WebsiteAdmission.Controllers
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
-            Feedback feedBack = db.Feedbacks.Find(id);
-            if (feedBack == null)
+            Feedback feedback = db.Feedbacks.Find(id);
+            if (feedback == null)
             {
                 return HttpNotFound();
             }
-            ViewBag.User_UserID = new SelectList(db.Users, "UserID", "UserName", feedBack.User_UserID);
-            return View(feedBack);
+            ViewBag.User_UserID = new SelectList(db.Users, "UserID", "UserName", feedback.User_UserID);
+            return View(feedback);
         }
 
         // POST: Feedbacks/Edit/5
@@ -82,16 +82,16 @@ namespace WebsiteAdmission.Controllers
         // more details see https://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Edit([Bind(Include = "FeedbackID,Content,User_UserID,Post_PostID")] Feedback feedBack)
+        public ActionResult Edit([Bind(Include = "FeedbackID,Content,User_UserID,Post_PostID")] Feedback feedback)
         {
             if (ModelState.IsValid)
             {
-                db.Entry(feedBack).State = EntityState.Modified;
+                db.Entry(feedback).State = EntityState.Modified;
                 db.SaveChanges();
                 return RedirectToAction("Index");
             }
-            ViewBag.User_UserID = new SelectList(db.Users, "UserID", "UserName", feedBack.User_UserID);
-            return View(feedBack);
+            ViewBag.User_UserID = new SelectList(db.Users, "UserID", "UserName", feedback.User_UserID);
+            return View(feedback);
         }
 
         // GET: Feedbacks/Delete/5
@@ -101,12 +101,12 @@ namespace WebsiteAdmission.Controllers
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
-            Feedback feedBack = db.Feedbacks.Find(id);
-            if (feedBack == null)
+            Feedback feedback = db.Feedbacks.Find(id);
+            if (feedback == null)
             {
                 return HttpNotFound();
             }
-            return View(feedBack);
+            return View(feedback);
         }
 
         // POST: Feedbacks/Delete/5
@@ -114,8 +114,8 @@ namespace WebsiteAdmission.Controllers
         [ValidateAntiForgeryToken]
         public ActionResult DeleteConfirmed(int id)
         {
-            Feedback feedBack = db.Feedbacks.Find(id);
-            db.Feedbacks.Remove(feedBack);
+            Feedback feedback = db.Feedbacks.Find(id);
+            db.Feedbacks.Remove(feedback);
             db.SaveChanges();
             return RedirectToAction("Index");
         }

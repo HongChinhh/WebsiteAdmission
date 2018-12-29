@@ -1,4 +1,4 @@
-namespace Models.EF
+namespace WebsiteAdmission.Models
 {
     using System;
     using System.Collections.Generic;
