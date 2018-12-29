@@ -1,9 +1,19 @@
 ﻿@model WebsiteAdmission.Models.Post
+@using WebsiteAdmission.Common
 
 @{
     ViewBag.Title = "Details";
     Layout = "~/Views/Shared/_Layout.cshtml";
 }
+<style>
+    .boxCkeditorImage {
+        outline: 1px solid #999;
+    }
+
+    img {
+        max-width: 100%;
+    }
+</style>
 
 <h2>Details</h2>
 
@@ -39,8 +49,8 @@
             @Html.DisplayNameFor(model => model.Body)
         </dt>
 
-        <dd>
-            @Html.DisplayFor(model => model.Body)
+        <dd class="boxCkeditorImage">
+            @Html.Raw(@Model.Body)
         </dd>
 
         <dt>
@@ -48,7 +58,7 @@
         </dt>
 
         <dd>
-            @Html.DisplayFor(model => model.CoverImage)
+            <img src="@Constants.ImagesPosts.GetDescription()@Model.PostID/@Html.DisplayFor(model => model.CoverImage)" />
         </dd>
 
         <dt>

@@ -9,6 +9,8 @@ using System.Web;
 using System.Web.Mvc;
 using WebsiteAdmission.Models;
 using Newtonsoft.Json.Linq;
+using Models.DAO;
+using WebsiteAdmission.Common;
 
 namespace WebsiteAdmission.Controllers
 {
@@ -51,19 +53,24 @@ namespace WebsiteAdmission.Controllers
         // more details see https://go.microsoft.com/fwlink/?LinkId=317598.
         [ValidateInput(false)]
         [HttpPost]
-        //[ValidateAntiForgeryToken]
-        public ActionResult Create([Bind(Include = "PostID,Title,Body,CoverImage,Author,Status,User_UserID,SubCategory_SubCategoryID")] Post post, string upload, string ckCsrfToken)
+        [ValidateAntiForgeryToken]
+        public ActionResult Create([Bind(Include = "PostID,Title,Body,Author,Status,User_UserID,SubCategory_SubCategoryID")] Post post, HttpPostedFileBase CoverImage)
         {
             if (ModelState.IsValid)
             {
                 string bodyHtml = post.Body;
                 post.Body = "temp";
+                post.CoverImage = "";
                 Post postSaved = db.Posts.Add(post);
                 db.SaveChanges();
-                //PostDAO()
+                string path = Server.MapPath(Constants.ImagesPosts.GetDescription() + post.PostID + "/");
+                PostDAO postDAO = new PostDAO();
+                post.Body = postDAO.SaveImages(bodyHtml, post.PostID, path);
+                postDAO.SaveImage(CoverImage, path, post.PostID);
+                post.CoverImage = post.PostID + Path.GetExtension(CoverImage.FileName);
+                db.SaveChanges();
                 return RedirectToAction("Index");
             }
-
             ViewBag.SubCategory_SubCategoryID = new SelectList(db.SubCategories, "SubCategoryID", "Name", post.SubCategory_SubCategoryID);
             ViewBag.User_UserID = new SelectList(db.Users, "UserID", "UserName", post.User_UserID);
             return View(post);
@@ -89,15 +96,27 @@ namespace WebsiteAdmission.Controllers
         // POST: Posts/Edit/5
         // To protect from overposting attacks, please enable the specific properties you want to bind to, for 
         // more details see https://go.microsoft.com/fwlink/?LinkId=317598.
+        [ValidateInput(false)]
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Edit([Bind(Include = "PostID,Title,Body,CoverImage,Author,Status,User_UserID,SubCategory_SubCategoryID")] Post post)
+        public ActionResult Edit([Bind(Include = "PostID,Title,Body,Author,Status,User_UserID,SubCategory_SubCategoryID")] Post post, HttpPostedFileBase CoverImage, string currentCoverImage)
         {
             if (ModelState.IsValid)
             {
-                if (post.Status == true && post.PublishedTime == null)
+                string bodyHtml = post.Body;
+                string path = Server.MapPath(Constants.ImagesPosts.GetDescription() + post.PostID + "/");
+                post.Body = new PostDAO().SaveImages(bodyHtml, post.PostID, path, post.CoverImage);
+                post.CoverImage = null;
+                if (CoverImage != null)
                 {
-                    post.PublishedTime = new DateTime();
+                    PostDAO postDAO = new PostDAO();
+                    postDAO.DeleteImage(currentCoverImage, path, post.PostID);
+                    postDAO.SaveImage(CoverImage, path, post.PostID);
+                    post.CoverImage = post.PostID + Path.GetExtension(CoverImage.FileName);
+                }
+                else
+                {
+                    post.CoverImage = currentCoverImage;
                 }
                 db.Entry(post).State = EntityState.Modified;
                 db.SaveChanges();
@@ -134,7 +153,7 @@ namespace WebsiteAdmission.Controllers
             return RedirectToAction("Index");
         }
 
-        public object UploadIMG(HttpPostedFileBase upload, string ckCsrfToken)
+        public object UploadIMG(HttpPostedFileBase upload)
         {
             dynamic response = new JObject();
             response.uploaded = true;
@@ -146,7 +165,7 @@ namespace WebsiteAdmission.Controllers
                 thePictureAsBytes = theReader.ReadBytes(upload.ContentLength);
             }
             string thePictureDataAsString = Convert.ToBase64String(thePictureAsBytes);
-            response.url = "data:" + upload.ContentType + ";base64," + thePictureDataAsString;
+            response.url = "data:" + upload.ContentType + ";base64;" + Path.GetExtension(upload.FileName) + ";," + thePictureDataAsString;
             return response;
         }
 

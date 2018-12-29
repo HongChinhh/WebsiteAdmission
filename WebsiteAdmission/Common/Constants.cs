@@ -5,9 +5,9 @@ namespace WebsiteAdmission.Common
 {
     public enum Constants
     {
-        [Description("~/Views/Shared/SubTemplate/")]
+        [Description("/Views/Shared/SubTemplate/")]
         SubCategory,
-        [Description("~/Content/images/posts/")]
+        [Description("/Content/images/posts/")]
         ImagesPosts,
         //[Description("/Content/images/posts/")]
         //ImagesPostsController,

@@ -9,7 +9,7 @@ namespace WebsiteAdmission.Controllers
     {
         private WebsiteAdmissionDbContext db = new WebsiteAdmissionDbContext();
         // GET: Home
-        public ActionResult Name(string id)
+        public ActionResult Index(string id)
         {
             ViewBag.ParentCategories = db.ParentCategories.OrderBy(s => s.Position).ToList();
             if (id == null)
