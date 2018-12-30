@@ -17,7 +17,7 @@ namespace WebsiteAdmission.Controllers
         // GET: ParentCategories
         public ActionResult Index()
         {
-            return View(db.ParentCategories.ToList());
+            return View(db.ParentCategories.OrderBy(s => s.Position).ToList());
         }
 
         // GET: ParentCategories/Details/5
@@ -113,6 +113,16 @@ namespace WebsiteAdmission.Controllers
             db.ParentCategories.Remove(parentCategory);
             db.SaveChanges();
             return RedirectToAction("Index");
+        }
+
+        [HttpPost]
+        public void ChangePositionValue([Bind(Include = "ParentCatPath,Position")] ParentCategory parentCategory)
+        {
+            int? tempPosition = parentCategory.Position;
+            parentCategory = db.ParentCategories.Where(s => s.ParentCatPath == parentCategory.ParentCatPath).FirstOrDefault();
+            parentCategory.Position = tempPosition;
+            db.Entry(parentCategory).State = EntityState.Modified;
+            db.SaveChanges();
         }
 
         protected override void Dispose(bool disposing)

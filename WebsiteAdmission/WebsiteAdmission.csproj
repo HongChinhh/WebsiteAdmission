@@ -258,6 +258,7 @@
     <Content Include="favicon.ico" />
     <Content Include="Global.asax" />
     <Content Include="Content\VendorCSS\Site.css" />
+    <Content Include="Scripts\js\change-position.js" />
     <Content Include="Scripts\js\slide.js" />
     <Content Include="Scripts\VendorJS\bootstrap-datetimepicker.js" />
     <Content Include="Scripts\VendorJS\bootstrap-datetimepicker.min.js" />

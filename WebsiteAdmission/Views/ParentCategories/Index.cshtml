@@ -11,36 +11,58 @@
     @Html.ActionLink("Create New", "Create")
 </p>
 <table class="table">
-    <tr>
-        <th>
-            @Html.DisplayNameFor(model => model.NameParentCat)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.Position)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.Status)
-        </th>
-        <th></th>
-    </tr>
+    <thead>
+        <tr>
+            <th>
+            </th>
+            <th class="text-center">
+                <button id="btn_edit_position" class="btn btn-danger btn-sm" data-disabled="true">Bật Sửa Position</button>
+            </th>
+            <th></th>
+        </tr>
+        <tr>
+            <th>
+                @Html.DisplayNameFor(model => model.NameParentCat)
+            </th>
+            <th class="text-center">
+                @Html.DisplayNameFor(model => model.Position)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Status)
+            </th>
+            <th></th>
+        </tr>
+    </thead>
 
-@foreach (var item in Model) {
-    <tr>
-        <td>
-            @Html.DisplayFor(modelItem => item.NameParentCat)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.Position)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.Status)
-        </td>
-        <td>
-            @Html.ActionLink("Edit", "Edit", new { id=item.ParentCatPath }) |
-            @Html.ActionLink("Details", "Details", new { id=item.ParentCatPath }) |
-            @Html.ActionLink("Delete", "Delete", new { id=item.ParentCatPath })
-        </td>
-    </tr>
-}
+    <tbody>
+        @foreach (var item in Model)
+        {
+            <tr>
+                <td>
+                    @Html.DisplayFor(modelItem => item.NameParentCat)
+                </td>
+                <td class="text-center">
+                    @using (Html.BeginForm("ChangePositionValue", "ParentCategories", FormMethod.Post, new { @class = "formChangePositionValue" }))
+                    {
+                        @Html.Hidden("ParentCatPath", item.ParentCatPath)
+                        @Html.Hidden("Position", item.Position)
+                    }
+                    <button class="btn_up glyphicon glyphicon-circle-arrow-up btn btn-success btn-sm" disabled></button>
+                    <button class="btn_down glyphicon glyphicon-circle-arrow-down btn btn-primary btn-sm" disabled></button>
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Status)
+                </td>
+                <td>
+                    @Html.ActionLink("Edit", "Edit", new { id = item.ParentCatPath }) |
+                    @Html.ActionLink("Details", "Details", new { id = item.ParentCatPath }) |
+                    @Html.ActionLink("Delete", "Delete", new { id = item.ParentCatPath })
+                </td>
+            </tr>
+        }
+    </tbody>
 
 </table>
+@section Scripts {
+    @Scripts.Render("~/Scripts/js/change-position")
+}

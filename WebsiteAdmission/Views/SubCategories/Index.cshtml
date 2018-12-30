@@ -11,42 +11,67 @@
     @Html.ActionLink("Create New", "Create")
 </p>
 <table class="table">
-    <tr>
-        <th>
-            @Html.DisplayNameFor(model => model.ParentCategory.NameParentCat)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.Name)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.ViewName)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.Position)
-        </th>
-        <th></th>
-    </tr>
-
-@foreach (var item in Model) {
-    <tr>
-        <td>
-            @Html.DisplayFor(modelItem => item.ParentCategory.NameParentCat)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.Name)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.ViewName)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.Position)
-        </td>
-        <td>
-            @Html.ActionLink("Edit", "Edit", new { id=item.SubCategoryID }) |
-            @Html.ActionLink("Details", "Details", new { id=item.SubCategoryID }) |
-            @Html.ActionLink("Delete", "Delete", new { id=item.SubCategoryID })
-        </td>
-    </tr>
-}
-
+    <thead>
+        <tr>
+            <th>
+            </th>
+            <th>
+            </th>
+            <th>
+            </th>
+            <th class="text-center">
+                <button id="btn_edit_position" class="btn btn-danger btn-sm" data-disabled="true">Bật Sửa Position</button>
+            </th>
+            <th></th>
+        </tr>
+        <tr>
+            <th>
+                @Html.DisplayNameFor(model => model.ParentCategory.NameParentCat)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Name)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.ViewName)
+            </th>
+            <th class="text-center">
+                @Html.DisplayNameFor(model => model.Position)
+            </th>
+            <th></th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var item in Model)
+        {
+            <tr>
+                <td>
+                    @Html.DisplayFor(modelItem => item.ParentCategory.NameParentCat)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Name)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.ViewName)
+                </td>
+                <td class="text-center">
+                    @using (Html.BeginForm("ChangePositionValue", "SubCategories", FormMethod.Post, new { @class = "formChangePositionValue" }))
+                    {
+                        @Html.Hidden("SubCategoryID", item.SubCategoryID)
+                        @Html.Hidden("Position", item.Position)
+                    }
+                    <button class="btn_up glyphicon glyphicon-circle-arrow-up btn btn-success btn-sm" disabled></button>
+                    <button class="btn_down glyphicon glyphicon-circle-arrow-down btn btn-primary btn-sm" disabled></button>
+                </td>
+                <td>
+                    @Html.ActionLink("Edit", "Edit", new { id = item.SubCategoryID }) |
+                    @Html.ActionLink("Details", "Details", new { id = item.SubCategoryID }) |
+                    @Html.ActionLink("Delete", "Delete", new { id = item.SubCategoryID })
+                </td>
+            </tr>
+        }
+    </tbody>
 </table>
+
+@section Scripts {
+    @Scripts.Render("~/Scripts/js/change-position")
+}

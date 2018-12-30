@@ -37,6 +37,9 @@ namespace WebsiteAdmission
                      "~/Content/styles/trangchu.css"));
             bundles.Add(new ScriptBundle("~/Scripts/js/slide").Include(
                   "~/Scripts/js/slide.js"));
+            // admin
+            bundles.Add(new ScriptBundle("~/Scripts/js/change-position").Include(
+                  "~/Scripts/js/change-position.js"));
         }
     }
 }

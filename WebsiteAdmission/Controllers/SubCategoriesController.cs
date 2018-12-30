@@ -17,7 +17,9 @@ namespace WebsiteAdmission.Controllers
         // GET: SubCategories
         public ActionResult Index()
         {
-            var subCategories = db.SubCategories.Include(s => s.ParentCategory);
+            var subCategories = db.SubCategories.Include(s => s.ParentCategory)
+                .OrderBy(s => s.ParentCategory.NameParentCat)
+                .OrderBy(s => s.Position);
             return View(subCategories.ToList());
         }
 
@@ -118,6 +120,16 @@ namespace WebsiteAdmission.Controllers
             db.SubCategories.Remove(subCategory);
             db.SaveChanges();
             return RedirectToAction("Index");
+        }
+
+        [HttpPost]
+        public void ChangePositionValue([Bind(Include = "SubCategoryID,Position")] SubCategory subCategory)
+        {
+            int? tempPosition = subCategory.Position;
+            subCategory = db.SubCategories.Where(s => s.SubCategoryID == subCategory.SubCategoryID).FirstOrDefault();
+            subCategory.Position = tempPosition;
+            db.Entry(subCategory).State = EntityState.Modified;
+            db.SaveChanges();
         }
 
         protected override void Dispose(bool disposing)
