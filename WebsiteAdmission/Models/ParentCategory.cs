@@ -23,7 +23,7 @@ namespace WebsiteAdmission.Models
         [StringLength(250)]
         public string NameParentCat { get; set; }
 
-        public int? Position { get; set; }
+        public int Position { get; set; }
 
         public bool? Status { get; set; }
 

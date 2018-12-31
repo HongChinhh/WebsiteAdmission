@@ -24,7 +24,7 @@ namespace WebsiteAdmission.Models
         [StringLength(250)]
         public string ViewName { get; set; }
 
-        public int? Position { get; set; }
+        public int Position { get; set; }
 
         [Required]
         [StringLength(50)]

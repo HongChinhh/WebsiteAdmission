@@ -16,7 +16,7 @@ namespace WebsiteAdmission.Controllers
             {
                 id = db.SubCategories.FirstOrDefault().ParentCategory_ParentCatPath;
             }
-            db.Posts.OrderByDescending(s => s.Title);
+            db.Posts.OrderByDescending(s => s.PublishedTime);
             var subCategories = db.SubCategories
                 .Where(s => s.ParentCategory_ParentCatPath == id)
                 .OrderBy(s => s.Position)

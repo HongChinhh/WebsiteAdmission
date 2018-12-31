@@ -21,7 +21,13 @@ namespace WebsiteAdmission.Controllers
         // GET: Posts
         public ActionResult Index()
         {
-            var posts = db.Posts.OrderBy(s => s.PublishedTime).Include(p => p.SubCategory).Include(p => p.User);
+            var posts = db.Posts
+                .OrderBy(s => s.SubCategory.ParentCategory.NameParentCat)
+                .ThenBy(s=> s.SubCategory.Name)
+                .ThenByDescending(s => s.PublishedTime)
+                .Include(p => p.SubCategory)
+                .Include(p => p.User)
+                .Include(p => p.SubCategory.ParentCategory);
             return View(posts.ToList());
         }
 
@@ -43,7 +49,8 @@ namespace WebsiteAdmission.Controllers
         // GET: Posts/Create
         public ActionResult Create()
         {
-            ViewBag.SubCategory_SubCategoryID = new SelectList(db.SubCategories, "SubCategoryID", "Name");
+            // -1 selected value
+            ViewBag.SubCategory_SubCategoryID = new SelectList(db.SubCategories.OrderBy(s => s.ParentCategory.Position), "SubCategoryID", "Name", "ParentCategory.NameParentCat", -1);
             ViewBag.User_UserID = new SelectList(db.Users, "UserID", "UserName");
             return View();
         }
@@ -68,6 +75,8 @@ namespace WebsiteAdmission.Controllers
 
                 string coverImageName = postDAO.SaveCoverImage(CoverImage, post.PostID);
                 post.CoverImage = coverImageName;
+                post.CreatedTime = DateTime.Now;
+                post.PublishedTime = DateTime.Now;
                 db.SaveChanges();
                 return RedirectToAction("Index");
             }
@@ -88,7 +97,7 @@ namespace WebsiteAdmission.Controllers
             {
                 return HttpNotFound();
             }
-            ViewBag.SubCategory_SubCategoryID = new SelectList(db.SubCategories, "SubCategoryID", "Name", post.SubCategory_SubCategoryID);
+            ViewBag.SubCategory_SubCategoryID = new SelectList(db.SubCategories.OrderBy(s => s.ParentCategory.Position), "SubCategoryID", "Name", "ParentCategory.NameParentCat", post.SubCategory_SubCategoryID);
             ViewBag.User_UserID = new SelectList(db.Users, "UserID", "UserName", post.User_UserID);
             return View(post);
         }

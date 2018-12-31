@@ -118,11 +118,14 @@ namespace WebsiteAdmission.Controllers
         [HttpPost]
         public void ChangePositionValue([Bind(Include = "ParentCatPath,Position")] ParentCategory parentCategory)
         {
-            int? tempPosition = parentCategory.Position;
-            parentCategory = db.ParentCategories.Where(s => s.ParentCatPath == parentCategory.ParentCatPath).FirstOrDefault();
-            parentCategory.Position = tempPosition;
-            db.Entry(parentCategory).State = EntityState.Modified;
-            db.SaveChanges();
+            if (parentCategory.Position > 0)
+            {
+                int tempPosition = parentCategory.Position;
+                parentCategory = db.ParentCategories.Where(s => s.ParentCatPath == parentCategory.ParentCatPath).FirstOrDefault();
+                parentCategory.Position = tempPosition;
+                db.Entry(parentCategory).State = EntityState.Modified;
+                db.SaveChanges();
+            }
         }
 
         protected override void Dispose(bool disposing)

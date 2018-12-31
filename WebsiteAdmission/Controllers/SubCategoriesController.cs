@@ -19,9 +19,10 @@ namespace WebsiteAdmission.Controllers
         // GET: SubCategories
         public ActionResult Index()
         {
-            var subCategories = db.SubCategories.Include(s => s.ParentCategory)
-                .OrderBy(s => s.ParentCategory.NameParentCat)
-                .OrderBy(s => s.Position);
+            var subCategories = db.SubCategories
+                .OrderBy(s => s.ParentCategory.Position)
+                .ThenBy(s => s.ParentCategory_ParentCatPath)
+                .ThenBy(s => s.Position);
             return View(subCategories.ToList());
         }
 
@@ -57,6 +58,8 @@ namespace WebsiteAdmission.Controllers
         {
             if (ModelState.IsValid)
             {
+                subCategory.Position = db.SubCategories
+                    .Where(s => s.ParentCategory_ParentCatPath == subCategory.ParentCategory_ParentCatPath).Count() + 1;
                 db.SubCategories.Add(subCategory);
                 db.SaveChanges();
                 return RedirectToAction("Index");
@@ -129,11 +132,14 @@ namespace WebsiteAdmission.Controllers
         [HttpPost]
         public void ChangePositionValue([Bind(Include = "SubCategoryID,Position")] SubCategory subCategory)
         {
-            int? tempPosition = subCategory.Position;
-            subCategory = db.SubCategories.Where(s => s.SubCategoryID == subCategory.SubCategoryID).FirstOrDefault();
-            subCategory.Position = tempPosition;
-            db.Entry(subCategory).State = EntityState.Modified;
-            db.SaveChanges();
+            if (subCategory.Position > 0)
+            {
+                int tempPosition = subCategory.Position;
+                subCategory = db.SubCategories.Where(s => s.SubCategoryID == subCategory.SubCategoryID).FirstOrDefault();
+                subCategory.Position = tempPosition;
+                db.Entry(subCategory).State = EntityState.Modified;
+                db.SaveChanges();
+            }
         }
 
         protected override void Dispose(bool disposing)

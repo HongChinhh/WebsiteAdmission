@@ -1,4 +1,4 @@
-﻿@model IEnumerable<WebsiteAdmission.Models.Post>
+﻿ @model IEnumerable<WebsiteAdmission.Models.Post>
 
 @{
     ViewBag.Title = "Index";
@@ -13,6 +13,9 @@
 <table class="table">
     <tr>
         <th>
+            @Html.DisplayNameFor(model => model.SubCategory.ParentCategory.NameParentCat)
+        </th>
+        <th>
             @Html.DisplayNameFor(model => model.SubCategory.Name)
         </th>
         <th>
@@ -24,9 +27,9 @@
         @*<th>
             @Html.DisplayNameFor(model => model.Body)
         </th>*@
-        <th>
+        @*<th>
             @Html.DisplayNameFor(model => model.CoverImage)
-        </th>
+        </th>*@
         <th>
             @Html.DisplayNameFor(model => model.Author)
         </th>
@@ -45,6 +48,9 @@
 @foreach (var item in Model) {
     <tr>
         <td>
+        @Html.DisplayFor(modelItem => item.SubCategory.ParentCategory.NameParentCat)
+        </td>
+        <td>
             @Html.DisplayFor(modelItem => item.SubCategory.Name)
         </td>
         <td>
@@ -56,9 +62,9 @@
         @*<td>
             @Html.DisplayFor(modelItem => item.Body)
         </td>*@
-        <td>
+        @*<td>
             @Html.DisplayFor(modelItem => item.CoverImage)
-        </td>
+        </td>*@
         <td>
             @Html.DisplayFor(modelItem => item.Author)
         </td>
@@ -72,9 +78,9 @@
             @Html.DisplayFor(modelItem => item.Status)
         </td>
         <td>
-            @Html.ActionLink("Edit", "Edit", new { id=item.PostID }) |
-            @Html.ActionLink("Details", "Details", new { id=item.PostID }) |
-            @Html.ActionLink("Delete", "Delete", new { id=item.PostID })
+            @Html.ActionLink("Edit", "Edit", new { id = item.PostID }) |
+            @Html.ActionLink("Details", "Details", new { id = item.PostID }) |
+            @Html.ActionLink("Delete", "Delete", new { id = item.PostID })
         </td>
     </tr>
 }

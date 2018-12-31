@@ -14,9 +14,11 @@ namespace WebsiteAdmission.DAO
             if (Directory.Exists(localPath))
             {
                 List<string> listViewName = new List<string>();
+                string fileName;
                 foreach (var imagePath in Directory.GetFiles(localPath))
                 {
-                    listViewName.Add(Path.GetFileName(imagePath));
+                    fileName = Path.GetFileName(imagePath);
+                    listViewName.Add(fileName.Substring(0, fileName.LastIndexOf(".")));
                 }
                 SelectList selectLists = new SelectList(listViewName);
                 return selectLists;
