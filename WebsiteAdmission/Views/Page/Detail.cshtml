@@ -1,0 +1,12 @@
+﻿@model WebsiteAdmission.Models.Post
+@{
+    Layout = "_Layout.cshtml";
+}
+<div class="detail_container">
+    <div class="content_post">
+        <h3>@Model.Title</h3>
+        <p>
+            @Html.Raw(Model.Body)
+        </p>
+    </div>
+</div>

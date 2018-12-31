@@ -343,9 +343,6 @@
     <Content Include="Views\Shared\SubTemplate\_GioiThieu.cshtml" />
     <Content Include="Views\Shared\SubTemplate\_TinTuc_ThongBao_Row1.cshtml" />
     <Content Include="Views\Shared\SubTemplate\_TinTuc_ThongBao_Row2.cshtml" />
-    <Content Include="Views\Shared\SubTemplate\_TinTuc_ThongBao_Row3.cshtml" />
-    <Content Include="Views\Shared\SubTemplate\_TinTuc_ThongBao_Row4.cshtml" />
-    <Content Include="Views\Shared\SubTemplate\_TinTuc_ThongBao_Row5.cshtml" />
     <Content Include="Views\Feedbacks\Create.cshtml" />
     <Content Include="Views\Feedbacks\Delete.cshtml" />
     <Content Include="Views\Feedbacks\Details.cshtml" />
@@ -376,6 +373,7 @@
     <Content Include="Views\Users\Details.cshtml" />
     <Content Include="Views\Users\Edit.cshtml" />
     <Content Include="Views\Users\Index.cshtml" />
+    <Content Include="Views\Page\Detail.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

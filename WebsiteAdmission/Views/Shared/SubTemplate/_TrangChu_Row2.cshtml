@@ -16,10 +16,12 @@
                         break;
                     }
                     <div class="new_tsdh">
-                        <img src="@Constants.ImagesPosts.GetDescription() + @(item.SubCategory.SubCategoryID + "/" + item.CoverImage)" />
-                        <h4>
-                            @item.Title
-                        </h4>
+                        <a href="@Url.Action("Detail", "Page", new { id = item.PostID })" class="clear_a">
+                            <img src="@(Constants.ImagesPosts.GetDescription() + item.PostID + '/' + item.CoverImage)" />
+                            <h4>
+                                @item.Title
+                            </h4>
+                        </a>
                         <a href="#">CHI TIẾT </a>
                     </div>
                 }

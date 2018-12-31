@@ -3,7 +3,7 @@
         <div id="header">
             <div class="tieude">
                 <div class="logo">
-                    <img src="Content/images/logo.png" />
+                    <img src="/Content/images/logo.png" />
                 </div>
                 <div class="content_tieude">
                     <h1><a href="../pages/trangchu.html">ĐẠI HỌC KINH TẾ HUẾ</a></h1>
@@ -27,7 +27,7 @@
                 <ul>
                     @foreach (var item in (IEnumerable<WebsiteAdmission.Models.ParentCategory>)ViewBag.ParentCategories)
                     {
-                        <li><a href="/@item.ParentCatPath">@item.NameParentCat</a></li>
+                        <li><a href="@Url.Action("Index", "Page", new { id = item.ParentCatPath })">@item.NameParentCat</a></li>
                     }
                 </ul>
             </div>

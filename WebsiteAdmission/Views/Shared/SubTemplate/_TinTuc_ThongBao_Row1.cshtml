@@ -11,11 +11,13 @@
                 break;
             }
             <div class="container1">
-                <img src="@Constants.ImagesPosts.GetDescription()@item.PostID/@item.CoverImage" alt="Cinque Terre" class="image">
-                <div class="topleft">@item.Title</div>
+                <a href="@Url.Action("Detail", "Page", new { id = item.PostID })" class="clear_a">
+                    <img src="@(Constants.ImagesPosts.GetDescription() + item.PostID + '/' + item.CoverImage)" alt="No Image" class="image">
+                    <div class="topleft">@item.Title</div>
+                </a>
 
                 <div class="link_container1">
-                    @Html.ActionLink("Chi Tiết", "Detail", "Page", new { id = item.PostID })
+                    Chi Tiết
                 </div>
             </div>
         }

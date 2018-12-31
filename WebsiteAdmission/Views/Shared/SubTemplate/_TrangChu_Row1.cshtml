@@ -15,10 +15,10 @@
                     break;
                 }
                 <div class="new">
-                    <div class="new1">
-                        <img src="@Constants.ImagesPosts.GetDescription()@item.PostID/@item.CoverImage" />
+                    <a href="@Url.Action("Detail", "Page", new { id = item.PostID })" class="new1 clear_a">
+                        <img src="@(Constants.ImagesPosts.GetDescription() + item.PostID + '/' + item.CoverImage)" />
                         <p><b>@item.Title</b> </p><p>@item.PublishedTime</p>
-                    </div>
+                    </a>
                 </div>
             }
         </div>

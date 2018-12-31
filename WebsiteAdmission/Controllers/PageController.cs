@@ -16,19 +16,18 @@ namespace WebsiteAdmission.Controllers
             {
                 id = db.SubCategories.FirstOrDefault().ParentCategory_ParentCatPath;
             }
-            db.Posts.OrderByDescending(s => s.PublishedTime);
             var subCategories = db.SubCategories
                 .Where(s => s.ParentCategory_ParentCatPath == id)
                 .OrderBy(s => s.Position)
                 .ToList();
-            return View(subCategories);
+            return View("Index", subCategories);
         }
 
         public ActionResult Detail(int id)
         {
             ViewBag.ParentCategories = db.ParentCategories.OrderBy(s => s.Position).ToList();
-            var post = db.Posts.Where(s => s.PostID == id).ToList();
-            return View(post);
+            var post = db.Posts.Where(s => s.PostID == id).FirstOrDefault();
+            return View("Detail", post);
         }
     }
 }

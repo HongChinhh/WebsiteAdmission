@@ -15,10 +15,12 @@
                     break;
                 }
                 <div class="new_lkdh">
-                    <img src="@Constants.ImagesPosts.GetDescription() + @(item.SubCategory.SubCategoryID + "/" + item.CoverImage)" />
-                    <p>
-                        Chương trình tiên tiến
-                    </p>
+                    <a href="@Url.Action("Detail", "Page", new { id = item.PostID })" class="clear_a">
+                        <img src="@(Constants.ImagesPosts.GetDescription() + item.PostID + '/' + item.CoverImage)" />
+                        <p>
+                            Chương trình tiên tiến
+                        </p>
+                    </a>
                     <a href="#">CHI TIẾT </a>
                 </div>
             }
