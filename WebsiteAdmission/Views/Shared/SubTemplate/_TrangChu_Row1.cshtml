@@ -16,7 +16,7 @@
                 }
                 <div class="new">
                     <div class="new1">
-                        <img src="@Constants.ImagesPosts.GetDescription() + @(item.SubCategory.SubCategoryID + "/" + item.CoverImage)" />
+                        <img src="@Constants.ImagesPosts.GetDescription()@item.PostID/@item.CoverImage" />
                         <p><b>@item.Title</b> </p><p>@item.PublishedTime</p>
                     </div>
                 </div>

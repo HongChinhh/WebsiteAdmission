@@ -11,7 +11,7 @@
                 break;
             }
             <div class="container1">
-                <img src="@Constants.ImagesPosts.GetDescription() + @(item.SubCategory.SubCategoryID + "/" + item.CoverImage)" alt="Cinque Terre" class="image">
+                <img src="@Constants.ImagesPosts.GetDescription()@item.PostID/@item.CoverImage" alt="Cinque Terre" class="image">
                 <div class="topleft">@item.Title</div>
 
                 <div class="link_container1">

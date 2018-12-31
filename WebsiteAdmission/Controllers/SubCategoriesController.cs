@@ -6,6 +6,8 @@ using System.Linq;
 using System.Net;
 using System.Web;
 using System.Web.Mvc;
+using WebsiteAdmission.Common;
+using WebsiteAdmission.DAO;
 using WebsiteAdmission.Models;
 
 namespace WebsiteAdmission.Controllers
@@ -42,6 +44,7 @@ namespace WebsiteAdmission.Controllers
         public ActionResult Create()
         {
             ViewBag.ParentCategory_ParentCatPath = new SelectList(db.ParentCategories, "ParentCatPath", "NameParentCat");
+            ViewBag.ListViewName = new SubCategoryDAO().GetListViewName();
             return View();
         }
 
@@ -76,6 +79,7 @@ namespace WebsiteAdmission.Controllers
                 return HttpNotFound();
             }
             ViewBag.ParentCategory_ParentCatPath = new SelectList(db.ParentCategories, "ParentCatPath", "NameParentCat", subCategory.ParentCategory_ParentCatPath);
+            ViewBag.ListViewName = new SubCategoryDAO().GetListViewName();
             return View(subCategory);
         }
 

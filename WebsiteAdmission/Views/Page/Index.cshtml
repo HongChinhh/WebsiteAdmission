@@ -5,5 +5,5 @@
 }
 @foreach (var item in Model)
 {
-    Html.RenderPartial(Constants.SubCategory.GetDescription() + item.ViewName + ".cshtml", item.Posts);
+    Html.RenderPartial(Constants.SubCategory.GetDescription() + item.ViewName + ".cshtml", item.Posts.OrderByDescending(s => s.PublishedTime));
 }

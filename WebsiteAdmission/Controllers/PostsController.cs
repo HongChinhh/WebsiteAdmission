@@ -60,14 +60,14 @@ namespace WebsiteAdmission.Controllers
             {
                 string bodyHtml = post.Body;
                 post.Body = "temp";
-                post.CoverImage = "";
                 Post postSaved = db.Posts.Add(post);
                 db.SaveChanges();
-                string path = Server.MapPath(Constants.ImagesPosts.GetDescription() + post.PostID + "/");
+
                 PostDAO postDAO = new PostDAO();
-                post.Body = postDAO.SaveImages(bodyHtml, post.PostID, path);
-                postDAO.SaveImage(CoverImage, path, post.PostID);
-                post.CoverImage = post.PostID + Path.GetExtension(CoverImage.FileName);
+                post.Body = postDAO.SaveImages(bodyHtml, post.PostID, null);
+
+                string coverImageName = postDAO.SaveCoverImage(CoverImage, post.PostID);
+                post.CoverImage = coverImageName;
                 db.SaveChanges();
                 return RedirectToAction("Index");
             }
@@ -104,15 +104,12 @@ namespace WebsiteAdmission.Controllers
             if (ModelState.IsValid)
             {
                 string bodyHtml = post.Body;
-                string path = Server.MapPath(Constants.ImagesPosts.GetDescription() + post.PostID + "/");
-                post.Body = new PostDAO().SaveImages(bodyHtml, post.PostID, path, post.CoverImage);
-                post.CoverImage = null;
+                post.Body = new PostDAO().SaveImages(bodyHtml, post.PostID, currentCoverImage);
                 if (CoverImage != null)
                 {
                     PostDAO postDAO = new PostDAO();
-                    postDAO.DeleteImage(currentCoverImage, path, post.PostID);
-                    postDAO.SaveImage(CoverImage, path, post.PostID);
-                    post.CoverImage = post.PostID + Path.GetExtension(CoverImage.FileName);
+                    postDAO.DeleteCoverImage(currentCoverImage, post.PostID);
+                    post.CoverImage = postDAO.SaveCoverImage(CoverImage, post.PostID);
                 }
                 else
                 {

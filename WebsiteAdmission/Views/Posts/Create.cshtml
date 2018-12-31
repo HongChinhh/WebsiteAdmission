@@ -43,7 +43,7 @@
         <div class="form-group">
             @Html.LabelFor(model => model.CoverImage, htmlAttributes: new { @class = "control-label col-md-2" })
             <div class="col-md-10">
-                @Html.EditorFor(model => model.CoverImage, new { htmlAttributes = new { @type = "file", @class = "form-control" } })
+                @Html.EditorFor(model => model.CoverImage, new { htmlAttributes = new { @type = "file", @accept = "image/*", @class = "form-control" } })
                 @Html.ValidationMessageFor(model => model.CoverImage, "", new { @class = "text-danger" })
             </div>
         </div>
@@ -92,7 +92,7 @@
 <div>
     @Html.ActionLink("Back to List", "Index")
 </div>
-@section Scripts {
+@section script {
     <script src="~/Scripts/VendorJS/ckeditor.js"></script>
     <script>
         DecoupledEditor

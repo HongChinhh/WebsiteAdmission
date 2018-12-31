@@ -9,7 +9,5 @@ namespace WebsiteAdmission.Common
         SubCategory,
         [Description("/Content/images/posts/")]
         ImagesPosts,
-        //[Description("/Content/images/posts/")]
-        //ImagesPostsController,
     }
 }
