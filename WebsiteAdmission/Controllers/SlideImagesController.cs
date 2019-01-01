@@ -18,7 +18,11 @@ namespace WebsiteAdmission.Controllers
         // GET: SlideImages
         public ActionResult Index(string search = "", int page = 1, int pageSize = 10)
         {
-            return View(db.SlideImages.ToPagedList(page, pageSize));
+            return View(db.SlideImages
+                .Where(s => s.Url.Contains(search)
+                || s.Descri.Contains(search))
+                .OrderBy(s => s.SlideImageID)
+                .ToPagedList(page, pageSize));
         }
 
         // GET: SlideImages/Details/5

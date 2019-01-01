@@ -1,4 +1,5 @@
-﻿using System;
+﻿using PagedList;
+using System;
 using System.Collections.Generic;
 using System.Data;
 using System.Data.Entity;
@@ -17,7 +18,11 @@ namespace WebsiteAdmission.Controllers
         // GET: Privileges
         public ActionResult Index(string search = "", int page = 1, int pageSize = 10)
         {
-            return View(db.Privileges.ToList());
+            return View(db.Privileges
+                .Where(s => s.Name.Contains(search)
+                || s.Description.Contains(search))
+                .OrderBy(s => s.PrivilegeID)
+                .ToPagedList(page, pageSize));
         }
 
         // GET: Privileges/Details/5

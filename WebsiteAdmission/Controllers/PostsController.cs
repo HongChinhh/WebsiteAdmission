@@ -23,6 +23,14 @@ namespace WebsiteAdmission.Controllers
         public ActionResult Index(string search = "", int page = 1, int pageSize = 10)
         {
             var posts = db.Posts
+                .Where(s => s.SubCategory.ParentCategory.NameParentCat.Contains(search)
+                || s.SubCategory.Name.Contains(search)
+                || s.User.UserName.Contains(search)
+                || s.Title.Contains(search)
+                || s.Author.Contains(search)
+                || s.CreatedTime.ToString().Contains(search)
+                || s.PublishedTime.ToString().Contains(search)
+                || s.Status.ToString().Contains(search))
                 .OrderBy(s => s.SubCategory.ParentCategory.NameParentCat)
                 .ThenBy(s=> s.SubCategory.Name)
                 .ThenByDescending(s => s.PublishedTime)

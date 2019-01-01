@@ -3,7 +3,7 @@
 {
     @Html.Hidden("page", Model.PageCount < Model.PageNumber ? 0 : Model.PageNumber)
     <div class="form-horizontal">
-        <div class="form-group plr-15-n margin-0-n">
+        <div class="form-group plr-15-n">
             @Html.Label("Search", htmlAttributes: new { @class = "control-label pull-left" })
             <div class="col-md-10 d-flex-n">
                 @Html.TextBox("search", null, new { @class = "form-control radius-right-0" })

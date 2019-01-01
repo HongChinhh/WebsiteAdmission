@@ -1,4 +1,5 @@
-﻿using System;
+﻿using PagedList;
+using System;
 using System.Collections.Generic;
 using System.Data;
 using System.Data.Entity;
@@ -13,12 +14,16 @@ namespace WebsiteAdmission.Controllers
     public class FeedbacksController : Controller
     {
         private WebsiteAdmissionDbContext db = new WebsiteAdmissionDbContext();
-
         // GET: Feedbacks
         public ActionResult Index(string search = "", int page = 1, int pageSize = 10)
         {
-            var feedbacks = db.Feedbacks.Include(f => f.User);
-            return View(feedbacks.ToList());
+            var feedbacks = db.Feedbacks
+                .Include(f => f.User)
+                .Where(s => s.User.UserName.Contains(search)
+                || s.Content.Contains(search)
+                || s.Post_PostID.ToString().Contains(search))
+                .OrderBy(s => s.FeedbackID);
+            return View(feedbacks.ToPagedList(page, pageSize));
         }
 
         // GET: Feedbacks/Details/5
