@@ -15,7 +15,7 @@ namespace WebsiteAdmission.Controllers
         private WebsiteAdmissionDbContext db = new WebsiteAdmissionDbContext();
 
         // GET: ParentCategories
-        public ActionResult Index()
+        public ActionResult Index(string search = "", int page = 1, int pageSize = 10)
         {
             return View(db.ParentCategories.OrderBy(s => s.Position).ToList());
         }

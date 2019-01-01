@@ -1,0 +1,26 @@
+﻿.d-flex-n {
+    display: flex;
+}
+
+.margin-0-n {
+    margin: 0;
+}
+
+.plr-15-n {
+    padding-left: 15px;
+    padding-right: 15px;
+}
+
+.radius-right-0 {
+    border-top-right-radius: 0;
+    border-bottom-right-radius: 0;
+}
+
+.radius-left-0 {
+    border-top-left-radius: 0;
+    border-bottom-left-radius: 0;
+}
+
+.d-table-n {
+    display: table;
+}

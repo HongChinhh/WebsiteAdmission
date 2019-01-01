@@ -32,6 +32,9 @@ namespace WebsiteAdmission
 
             bundles.Add(new StyleBundle("~/Content/datetimepicker").Include(
                       "~/Content/VendorCSS/bootstrap-datetimepicker.css"));
+
+            bundles.Add(new StyleBundle("~/Content/styles/common").Include(
+                     "~/Content/styles/common.css"));
             // trang chu
             bundles.Add(new StyleBundle("~/Content/styles/trangchu").Include(
                      "~/Content/styles/trangchu.css"));

@@ -1,0 +1,14 @@
+﻿@model PagedList.IPagedList<object>
+@using (Html.BeginForm(null, null, FormMethod.Get))
+{
+    @Html.Hidden("page", Model.PageCount < Model.PageNumber ? 0 : Model.PageNumber)
+    <div class="form-horizontal">
+        <div class="form-group plr-15-n margin-0-n">
+            @Html.Label("Search", htmlAttributes: new { @class = "control-label pull-left" })
+            <div class="col-md-10 d-flex-n">
+                @Html.TextBox("search", null, new { @class = "form-control radius-right-0" })
+                <input type="submit" value="Search" class="btn btn-success radius-left-0" />
+            </div>
+        </div>
+    </div>
+}

@@ -11,6 +11,7 @@ using WebsiteAdmission.Models;
 using Newtonsoft.Json.Linq;
 using Models.DAO;
 using WebsiteAdmission.Common;
+using PagedList;
 
 namespace WebsiteAdmission.Controllers
 {
@@ -19,7 +20,7 @@ namespace WebsiteAdmission.Controllers
         private WebsiteAdmissionDbContext db = new WebsiteAdmissionDbContext();
 
         // GET: Posts
-        public ActionResult Index()
+        public ActionResult Index(string search = "", int page = 1, int pageSize = 10)
         {
             var posts = db.Posts
                 .OrderBy(s => s.SubCategory.ParentCategory.NameParentCat)
@@ -28,7 +29,7 @@ namespace WebsiteAdmission.Controllers
                 .Include(p => p.SubCategory)
                 .Include(p => p.User)
                 .Include(p => p.SubCategory.ParentCategory);
-            return View(posts.ToList());
+            return View(posts.ToPagedList(page, pageSize));
         }
 
         // GET: Posts/Details/5

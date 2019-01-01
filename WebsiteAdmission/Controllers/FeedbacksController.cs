@@ -15,7 +15,7 @@ namespace WebsiteAdmission.Controllers
         private WebsiteAdmissionDbContext db = new WebsiteAdmissionDbContext();
 
         // GET: Feedbacks
-        public ActionResult Index()
+        public ActionResult Index(string search = "", int page = 1, int pageSize = 10)
         {
             var feedbacks = db.Feedbacks.Include(f => f.User);
             return View(feedbacks.ToList());

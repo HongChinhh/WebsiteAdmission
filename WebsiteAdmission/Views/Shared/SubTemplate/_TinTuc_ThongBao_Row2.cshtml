@@ -14,16 +14,15 @@
                 {
                     break;
                 }
-                <div class="container1">
-                    <a href="@Url.Action("Detail", "Page", new { id = item.PostID })" class="clear_a">
-                        <img src="@(Constants.ImagesPosts.GetDescription() + item.PostID + '/' + item.CoverImage)" alt="Cinque Terre" class="image">
-                        <div class="topleft">@item.Title</div>
-
-                        <div class="link_container1">
-                            <a href="../pages/thongbaotuyensinh.html">CHI TIẾT </a>
-                        </div>
-                    </a>
+            <div class="container1">
+                <a href="@Url.Action("Detail", "Page", new { id = item.PostID })" class="clear_a">
+                    <img src="@(Constants.ImagesPosts.GetDescription() + item.PostID + '/' + item.CoverImage)" alt="Cinque Terre" class="image">
+                    <div class="topleft">@item.Title</div>
+                </a>
+                <div class="link_container1">
+                    <a href="../pages/thongbaotuyensinh.html">CHI TIẾT </a>
                 </div>
+            </div>
             }
         </div>
     </div>

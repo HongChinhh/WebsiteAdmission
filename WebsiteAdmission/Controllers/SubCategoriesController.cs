@@ -1,4 +1,5 @@
-﻿using System;
+﻿using PagedList;
+using System;
 using System.Collections.Generic;
 using System.Data;
 using System.Data.Entity;
@@ -17,13 +18,17 @@ namespace WebsiteAdmission.Controllers
         private WebsiteAdmissionDbContext db = new WebsiteAdmissionDbContext();
 
         // GET: SubCategories
-        public ActionResult Index()
+        public ActionResult Index(string search = "", int page = 1, int pageSize = 10)
         {
             var subCategories = db.SubCategories
+                .Where(s => s.ParentCategory.NameParentCat.Contains(search) 
+                || s.Name.Contains(search) 
+                || s.ViewName.Contains(search)
+                || s.Position.ToString().Contains(search))
                 .OrderBy(s => s.ParentCategory.Position)
                 .ThenBy(s => s.ParentCategory_ParentCatPath)
                 .ThenBy(s => s.Position);
-            return View(subCategories.ToList());
+            return View(subCategories.ToPagedList(page, pageSize));
         }
 
         // GET: SubCategories/Details/5

@@ -1,4 +1,4 @@
-﻿@model IEnumerable<WebsiteAdmission.Models.SlideImage>
+﻿@model PagedList.IPagedList<WebsiteAdmission.Models.SlideImage>
 
 @{
     ViewBag.Title = "Index";
@@ -10,31 +10,34 @@
 <p>
     @Html.ActionLink("Create New", "Create")
 </p>
+@Html.Partial("~/Views/Shared/_Search.cshtml")
 <table class="table">
     <tr>
         <th>
-            @Html.DisplayNameFor(model => model.Url)
+            @Html.DisplayNameFor(model => model.First().Url)
         </th>
         <th>
-            @Html.DisplayNameFor(model => model.Descri)
+            @Html.DisplayNameFor(model => model.First().Descri)
         </th>
         <th></th>
     </tr>
 
-@foreach (var item in Model) {
-    <tr>
-        <td>
-            @Html.DisplayFor(modelItem => item.Url)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.Descri)
-        </td>
-        <td>
-            @Html.ActionLink("Edit", "Edit", new { id=item.SlideImageID }) |
-            @Html.ActionLink("Details", "Details", new { id=item.SlideImageID }) |
-            @Html.ActionLink("Delete", "Delete", new { id=item.SlideImageID })
-        </td>
-    </tr>
-}
+    @foreach (var item in Model)
+    {
+        <tr>
+            <td>
+                @Html.DisplayFor(modelItem => item.Url)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Descri)
+            </td>
+            <td>
+                @Html.ActionLink("Edit", "Edit", new { id = item.SlideImageID }) |
+                @Html.ActionLink("Details", "Details", new { id = item.SlideImageID }) |
+                @Html.ActionLink("Delete", "Delete", new { id = item.SlideImageID })
+            </td>
+        </tr>
+    }
 
 </table>
+@Html.Partial("~/Views/Shared/_Pagination.cshtml")

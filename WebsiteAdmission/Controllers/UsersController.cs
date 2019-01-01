@@ -15,7 +15,7 @@ namespace WebsiteAdmission.Controllers
         private WebsiteAdmissionDbContext db = new WebsiteAdmissionDbContext();
 
         // GET: Users
-        public ActionResult Index()
+        public ActionResult Index(string search = "", int page = 1, int pageSize = 10)
         {
             var users = db.Users.Include(u => u.Privilege);
             return View(users.ToList());
