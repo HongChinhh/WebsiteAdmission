@@ -19,11 +19,11 @@ namespace WebsiteAdmission.Controllers
         public ActionResult Index(string search = "", int page = 1, int pageSize = 10)
         {
             search = search.Trim();
-            return View(db.ParentCategories.OrderBy(s => s.Position)
+            return View(db.ParentCategories
                 .Where(s => s.NameParentCat.Contains(search)
                 || s.Position.ToString().Contains(search)
                 || s.Status.ToString().Contains(search))
-                .OrderBy(s => s.ParentCatPath)
+                .OrderBy(s => s.Position)
                 .ToPagedList(page, pageSize));
         }
 
