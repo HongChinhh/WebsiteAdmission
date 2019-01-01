@@ -18,6 +18,7 @@ namespace WebsiteAdmission.Controllers
         // GET: SlideImages
         public ActionResult Index(string search = "", int page = 1, int pageSize = 10)
         {
+            search = search.Trim();
             return View(db.SlideImages
                 .Where(s => s.Url.Contains(search)
                 || s.Descri.Contains(search))

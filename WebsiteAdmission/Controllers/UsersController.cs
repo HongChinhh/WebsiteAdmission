@@ -18,6 +18,7 @@ namespace WebsiteAdmission.Controllers
         // GET: Users
         public ActionResult Index(string search = "", int page = 1, int pageSize = 10)
         {
+            search = search.Trim();
             var users = db.Users.Include(u => u.Privilege);
             return View(users
                 .Where(s => s.Privilege.Name.Contains(search)

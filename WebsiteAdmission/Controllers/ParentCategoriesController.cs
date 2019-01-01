@@ -18,6 +18,7 @@ namespace WebsiteAdmission.Controllers
         // GET: ParentCategories
         public ActionResult Index(string search = "", int page = 1, int pageSize = 10)
         {
+            search = search.Trim();
             return View(db.ParentCategories.OrderBy(s => s.Position)
                 .Where(s => s.NameParentCat.Contains(search)
                 || s.Position.ToString().Contains(search)

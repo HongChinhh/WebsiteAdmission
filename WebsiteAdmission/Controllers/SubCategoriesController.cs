@@ -20,6 +20,7 @@ namespace WebsiteAdmission.Controllers
         // GET: SubCategories
         public ActionResult Index(string search = "", int page = 1, int pageSize = 10)
         {
+            search = search.Trim();
             var subCategories = db.SubCategories
                 .Where(s => s.ParentCategory.NameParentCat.Contains(search) 
                 || s.Name.Contains(search) 

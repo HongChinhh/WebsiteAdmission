@@ -17,6 +17,7 @@ namespace WebsiteAdmission.Controllers
         // GET: Feedbacks
         public ActionResult Index(string search = "", int page = 1, int pageSize = 10)
         {
+            search = search.Trim();
             var feedbacks = db.Feedbacks
                 .Include(f => f.User)
                 .Where(s => s.User.UserName.Contains(search)

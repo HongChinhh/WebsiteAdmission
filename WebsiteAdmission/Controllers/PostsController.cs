@@ -22,6 +22,7 @@ namespace WebsiteAdmission.Controllers
         // GET: Posts
         public ActionResult Index(string search = "", int page = 1, int pageSize = 10)
         {
+            search = search.Trim();
             var posts = db.Posts
                 .Where(s => s.SubCategory.ParentCategory.NameParentCat.Contains(search)
                 || s.SubCategory.Name.Contains(search)
