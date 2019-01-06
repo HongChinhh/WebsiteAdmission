@@ -257,7 +257,7 @@ body {
         .tintuyensinh .new p {
             font-size: 12px;
             font-weight: initial;
-            padding-left: 50px;
+            /*padding-left: 50px;*/
             margin-left: 5px;
             margin-top: 4px;
         }
@@ -329,7 +329,7 @@ body {
             margin-left: 1px;
             text-align: left;
             text-decoration: none;
-            font-size: 10px;
+            /*font-size: 10px;*/
             font-weight: bold;
         }
 
@@ -414,7 +414,7 @@ body {
             margin-left: 1px;
             text-align: left;
             text-decoration: none;
-            font-size: 10px;
+            /*font-size: 10px;*/
             font-weight: bold;
         }
 
@@ -479,18 +479,18 @@ body {
         width: 31%;
         float: left;
         line-height: 15px;
-        margin-left: -445px;
+        /*margin-left: -445px;*/
     }
 
         .row9 .info_end1 .title_end1 {
-            float: left;
+            /*float: left;*/
             color: #fef9f9;
         }
 
         .row9 .info_end1 .line2 {
-            border-top: 0.5px solid #171111;
+            /*border-top: 0.5px solid #171111;*/
             width: 45%;
-            border-color: #b42e2e;
+            /*border-color: #b42e2e;*/
         }
 
         .row9 .info_end1 .content_end1 {
@@ -502,17 +502,17 @@ body {
         width: 31%;
         float: left;
         line-height: 15px;
-        margin-left: -100px;
-        margin-right: -44px;
+        /*margin-left: -100px;*/
+        /*margin-right: -44px;*/
     }
 
         .row9 .info_end2 .title_end2 {
-            float: left;
+            /*float: left;*/
             color: #fef9f9;
         }
 
         .row9 .info_end2 .line3 {
-            border-top: 0.5px solid #171111;
+            /*border-top: 0.5px solid #171111;*/
             width: 54%;
         }
 
@@ -529,17 +529,17 @@ body {
     }
 
         .row9 .info_end3 .title_end3 {
-            margin-left: 76px;
+            /*margin-left: 76px;*/
             color: #fef9f9;
         }
 
         .row9 .info_end3 .line4 {
             width: 64%;
-            padding-left: 77px;
+            /*padding-left: 77px;*/
         }
 
         .row9 .info_end3 .content_end3 {
-            float: right;
+            float: left;
             color: #959595;
         }
 

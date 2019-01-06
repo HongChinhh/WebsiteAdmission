@@ -8,22 +8,23 @@
             <div class="title">
                 <p><b>@Model.FirstOrDefault().SubCategory.Name</b></p>
             </div>
-            @foreach (var item in Model)
-            {
-                if (i++ == 6)
+            <table>
+                @foreach (var item in Model)
                 {
-                    break;
+                    if (i++ == 6)
+                    {
+                        break;
+                    }
+                    <tr class="new">
+                        <td>
+                            <a href="@Url.Action("Detail", "Page", new { id = item.PostID })" class="new1 clear_a">
+                                <img src="@(Constants.ImagesPosts.GetDescription() + item.PostID + '/' + item.CoverImage)" />
+                                <p class="limit-text-28px"><b>@item.Title</b> </p><p>@item.PublishedTime</p>
+                            </a>
+                        </td>
+                    </tr>
                 }
-                <div class="new">
-                    <a href="@Url.Action("Detail", "Page", new { id = item.PostID })" class="new1 clear_a">
-                        <img src="@(Constants.ImagesPosts.GetDescription() + item.PostID + '/' + item.CoverImage)" />
-                        <p><b>@item.Title</b> </p><p>@item.PublishedTime</p>
-                    </a>
-                </div>
-            }
-        </div>
-        <div class="button_tinkhac">
-            <a href="#">Xem Thêm</a>
+            </table>
         </div>
     </div>
 }

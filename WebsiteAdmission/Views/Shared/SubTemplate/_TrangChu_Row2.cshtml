@@ -16,13 +16,13 @@
                         break;
                     }
                     <div class="new_tsdh">
-                        <a href="@Url.Action("Detail", "Page", new { id = item.PostID })" class="clear_a">
+                        <a href="@Url.Action("Detail", "Page", new { id = item.PostID })">
                             <img src="@(Constants.ImagesPosts.GetDescription() + item.PostID + '/' + item.CoverImage)" />
-                            <h4>
+                            <h4 style="color: black">
                                 @item.Title
                             </h4>
+                            CHI TIẾT
                         </a>
-                        <a href="#">CHI TIẾT </a>
                     </div>
                 }
             </div>

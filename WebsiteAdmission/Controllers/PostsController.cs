@@ -15,6 +15,7 @@ using PagedList;
 
 namespace WebsiteAdmission.Controllers
 {
+    //[AuthorizeAdmin]
     public class PostsController : Controller
     {
         private WebsiteAdmissionDbContext db = new WebsiteAdmissionDbContext();
@@ -60,7 +61,7 @@ namespace WebsiteAdmission.Controllers
         public ActionResult Create()
         {
             // -1 selected value
-            ViewBag.SubCategory_SubCategoryID = new SelectList(db.SubCategories.OrderBy(s => s.ParentCategory.Position), "SubCategoryID", "Name", "ParentCategory.NameParentCat", -1);
+            ViewBag.SubCategory_SubCategoryID = new SelectList(db.SubCategories.OrderBy(s => s.ParentCategory.Position).ThenBy(s => s.Position), "SubCategoryID", "Name", "ParentCategory.NameParentCat", -1);
             ViewBag.User_UserID = new SelectList(db.Users, "UserID", "UserName");
             return View();
         }
@@ -107,7 +108,7 @@ namespace WebsiteAdmission.Controllers
             {
                 return HttpNotFound();
             }
-            ViewBag.SubCategory_SubCategoryID = new SelectList(db.SubCategories.OrderBy(s => s.ParentCategory.Position), "SubCategoryID", "Name", "ParentCategory.NameParentCat", post.SubCategory_SubCategoryID);
+            ViewBag.SubCategory_SubCategoryID = new SelectList(db.SubCategories.OrderBy(s => s.ParentCategory.Position).ThenBy(s => s.Position), "SubCategoryID", "Name", "ParentCategory.NameParentCat", post.SubCategory_SubCategoryID);
             ViewBag.User_UserID = new SelectList(db.Users, "UserID", "UserName", post.User_UserID);
             return View(post);
         }
@@ -134,6 +135,8 @@ namespace WebsiteAdmission.Controllers
                 {
                     post.CoverImage = currentCoverImage;
                 }
+                post.CreatedTime = post.CreatedTime ?? DateTime.Now;
+                post.PublishedTime = post.CreatedTime ?? DateTime.Now;
                 db.Entry(post).State = EntityState.Modified;
                 db.SaveChanges();
                 return RedirectToAction("Index");

@@ -71,7 +71,7 @@ namespace WebsiteAdmission.Controllers
                 return RedirectToAction("Index");
             }
 
-            ViewBag.ParentCategory_ParentCatPath = new SelectList(db.ParentCategories, "ParentCatPath", "NameParentCat", subCategory.ParentCategory_ParentCatPath);
+            ViewBag.ParentCategory_ParentCatPath = new SelectList(db.ParentCategories.OrderBy(s => s.Position), "ParentCatPath", "NameParentCat", subCategory.ParentCategory_ParentCatPath);
             return View(subCategory);
         }
 
@@ -87,7 +87,7 @@ namespace WebsiteAdmission.Controllers
             {
                 return HttpNotFound();
             }
-            ViewBag.ParentCategory_ParentCatPath = new SelectList(db.ParentCategories, "ParentCatPath", "NameParentCat", subCategory.ParentCategory_ParentCatPath);
+            ViewBag.ParentCategory_ParentCatPath = new SelectList(db.ParentCategories.OrderBy(s => s.Position), "ParentCatPath", "NameParentCat", subCategory.ParentCategory_ParentCatPath);
             ViewBag.ListViewName = new SubCategoryDAO().GetListViewName();
             return View(subCategory);
         }

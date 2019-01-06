@@ -6,6 +6,19 @@
     margin: 0;
 }
 
+.padding-0-n {
+    padding: 0;
+}
+
+.limit-text-28px {
+    overflow: hidden;
+    height: 28px;
+}
+
+.list-style-none-n {
+    list-style: none;
+}
+
 .plr-15-n {
     padding-left: 15px;
     padding-right: 15px;

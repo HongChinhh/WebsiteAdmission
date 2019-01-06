@@ -1,23 +1,61 @@
-﻿<div class="row8">
-    <div class="final">
-        <div class="vidieo1">
+﻿@*<div class="row8">
+        <div class="final">
+            <div class="vidieo1">
 
-            <div class="title_vidieo1">
-                <h3><b> Chọn Trường Đại học kinh tế Huế, tại sao?</b></h3>
+                <div class="title_vidieo1">
+                    <h3><b> Chọn Trường Đại học kinh tế Huế, tại sao?</b></h3>
+                </div>
+
+                <div class="midle_vidieo1">
+                    <iframe width="625" height="231" src="https://www.youtube.com/embed/FfYYTegj-Fo" frameborder="0" allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture" allowfullscreen=allowfullscreen></iframe>
+                </div>
+
             </div>
-
-            <div class="midle_vidieo1">
-                <iframe width="625" height="231" src="https://www.youtube.com/embed/FfYYTegj-Fo" frameborder="0" allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture" allowfullscreen=allowfullscreen></iframe>
+            <div class="vidieo2">
+                <div class="title_vidieo2">
+                    <h3><b> Học phải ngành, hành đúng nghề!</b></h3>
+                </div>
+                <div class="hoc_anh">
+                    <img src="Content/images/hoc.jpg" />
+                </div>
             </div>
-
         </div>
-        <div class="vidieo2">
-            <div class="title_vidieo2">
-                <h3><b> Học phải ngành, hành đúng nghề!</b></h3>
-            </div>
-            <div class="hoc_anh">
-                <img src="Content/images/hoc.jpg" />
-            </div>
+    </div>*@
+@model IEnumerable<WebsiteAdmission.Models.Post>
+@using WebsiteAdmission.Common
+@if (Model != null && Model.Count() > 0)
+{
+    int i = 0;
+    <div class="row8" style="display: table">
+        <div class="final">
+            @foreach (var item in Model)
+            {
+                if (i++ == 0)
+                {
+                    <a href="@Url.Action("Detail", "Page", new { id = item.PostID })">
+                        <div class="vidieo1">
+                            <div class="title_vidieo1">
+                                <h3><b>@item.Title</b></h3>
+                            </div>
+                            <div class="midle_vidieo1">
+                                @Html.Raw(item.Body)
+                            </div>
+                        </div>
+                    </a>
+                }
+                else
+                {
+                    <div class="vidieo2">
+                        <div class="title_vidieo2">
+                            <h3><b>@item.Title</b></h3>
+                        </div>
+                        <div class="hoc_anh">
+                            @Html.Raw(item.Body)
+                        </div>
+                    </div>
+                    break;
+                }
+            }
         </div>
     </div>
-</div>
+}
